@@ -2,7 +2,7 @@
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class PdfOptions
+    public class PdfOptions : Options, IOptions
     {
         /// <summary>
         /// Collate when printing multiple copies
@@ -23,7 +23,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         /// <para><em>AKA: <c>--log-level</c></em></para>
         /// </summary>
         [OptionFlag("--log-level")]
-        public LogLevel LogLevel { get; set; } = LogLevel.Information;
+        public LogLevel LogLevel { get; set; } = LogLevel.Info;
 
         /// <summary>
         /// Set orientation to Landscape or Portrait
@@ -86,5 +86,14 @@ namespace WkHtmlToPdf.Wrapper.Options
         public HttpOptions HttpOptions { get; set; } = new HttpOptions();
         public HeaderOptions HeaderOptions { get; set; } = new HeaderOptions();
         public FooterOptions FooterOptions { get; set; } = new FooterOptions();
+
+        public override string ToSwitchCommand()
+        {
+            //return " --load-error-handling ignore ";
+            //return " --load-media-error-handling abort ";
+            return string.Empty;
+            //var command = base.ToSwitchCommand();
+            //return $"{command} {CustomExtraOptions}".Trim();
+        }
     }
 }

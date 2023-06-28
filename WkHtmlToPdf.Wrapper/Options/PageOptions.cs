@@ -3,7 +3,7 @@ using System.Text;
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class PageOptions
+    public class PageOptions : Options, IOptions
     {
         /// <summary>
         /// Allow the file or files from the specified folder to be loaded

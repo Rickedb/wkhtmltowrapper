@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class HeaderOptions
+    public class HeaderOptions : Options, IOptions
     {
         /// <summary>
         /// Centered header text
@@ -57,6 +57,5 @@
         /// </summary>
         [OptionFlag("--header-spacing")]
         public double Spacing { get; set; } = 0;
-        //Replace values
     }
 }

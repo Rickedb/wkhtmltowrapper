@@ -1,16 +1,12 @@
-﻿using System;
-
-namespace WkHtmlToPdf.Wrapper.Options
+﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    internal class ToggleOptionFlag : Attribute
+    internal class ToggleOptionFlag : OptionFlag
     {
-        public string SetName { get; private set; }
-        public string UnsetName { get; private set; }
+        public string FalseSwitchName { get; private set; }
 
-        public ToggleOptionFlag(string setName, string unsetName)
+        public ToggleOptionFlag(string name, string unsetName) : base(name)
         {
-            SetName = setName;
-            UnsetName = unsetName;
+            FalseSwitchName = unsetName;
         }
     }
 }

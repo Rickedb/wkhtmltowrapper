@@ -186,7 +186,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         None,
         Error,
         Warning,
-        Information
+        Info
     }
 
     public enum ErrorHandling

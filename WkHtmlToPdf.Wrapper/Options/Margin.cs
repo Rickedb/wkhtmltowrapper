@@ -1,11 +1,6 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace WkHtmlToPdf.Wrapper.Options
+﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class Margin
+    public class Margin : Options, IOptions
     {
         /// <summary>
         /// Page bottom margin in mm.
@@ -66,25 +61,6 @@ namespace WkHtmlToPdf.Wrapper.Options
                 Bottom = value,
                 Left = value
             };
-        }
-
-        public override string ToString()
-        {
-            var result = new StringBuilder();
-
-            FieldInfo[] fields = GetType().GetFields();
-            foreach (var field in fields)
-            {
-                var of = field.GetCustomAttributes(typeof(OptionFlag), true).FirstOrDefault() as OptionFlag;
-                if (of == null)
-                    continue;
-
-                object value = field.GetValue(this);
-                if (value != null)
-                    result.AppendFormat(CultureInfo.InvariantCulture, " {0} {1}", of.Name, value);
-            }
-
-            return result.ToString().Trim();
         }
     }
 }

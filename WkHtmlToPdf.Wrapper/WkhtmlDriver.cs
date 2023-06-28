@@ -2,11 +2,23 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WkHtmlToPdf.Wrapper
 {
-    public abstract class WkhtmlDriver
+    public abstract class WkHtmlDriver
     {
+        private readonly string _wkhtmlPath;
+
+        internal abstract string WkHtmlExe { get; }
+
+        public event EventHandler<OutputEvent> OutputEvent;
+
+        public WkHtmlDriver(string wkhtmlPath)
+        {
+            _wkhtmlPath = wkhtmlPath;
+        }
+
         /// <summary>
         /// Converts given URL or HTML string to PDF.
         /// </summary>
@@ -15,35 +27,23 @@ namespace WkHtmlToPdf.Wrapper
         /// <param name="html">String containing HTML code that should be converted to PDF.</param>
         /// <param name="wkhtmlExe"></param>
         /// <returns>PDF as byte array.</returns>
-        protected static byte[] Convert(string wkhtmlPath, string switches, string html, string wkhtmlExe)
+        protected async Task<ConversionResult> ConvertHtmlAsync(string switches, string html, string outputPath)
         {
             // switches:
-            //     "-q"  - silent output, only errors - no progress messages
             //     " -"  - switch output to stdout
             //     "- -" - switch input to stdin and output to stdout
-            switches = "-q " + switches + " -";
+            //     "- <path>" - stdin input and output to path
+            //     "<url/file-path> -" output to stdout
+            //     "<url/file-path> <path>" - just paths
+            //switches += " -";
 
             // generate PDF from given HTML string, not from URL
             if (!string.IsNullOrEmpty(html))
             {
-                switches += " -";
-                html = SpecialCharsEncode(html);
+                switches += "\"C:\\GitHub\\wkhtmltowrapper\\WkHtmlToPdf.Wrapper.Tests\\Html\\SimpleHtml.html\" -";
             }
 
-            var proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Path.Combine(wkhtmlPath, wkhtmlExe),
-                    Arguments = switches,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    RedirectStandardInput = true,
-                    WorkingDirectory = wkhtmlPath,
-                    CreateNoWindow = true
-                }
-            };
+            var proc = CreateWkHtmlProcess(switches);
             proc.Start();
 
             // generate PDF from given HTML string, not from URL
@@ -51,56 +51,61 @@ namespace WkHtmlToPdf.Wrapper
             {
                 using (var sIn = proc.StandardInput)
                 {
-                    sIn.WriteLine(html);
+                    await sIn.WriteLineAsync(html);
                 }
             }
 
-            using (var ms = new MemoryStream())
+            var result = new FileConversionResult();
+            var logsTask = Task.Run(async () =>
             {
-                using (var sOut = proc.StandardOutput.BaseStream)
+                string log = string.Empty;
+                while (!string.IsNullOrEmpty(log = await proc.StandardError.ReadLineAsync()))
                 {
-                    byte[] buffer = new byte[4096];
-                    int read;
-
-                    while ((read = sOut.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        ms.Write(buffer, 0, read);
-                    }
+                    var ev = Wrapper.OutputEvent.Parse(log);
+                    result.AddEvent(ev);
+                    OutputEvent?.Invoke(this, ev);
                 }
+            });
 
-                string error = proc.StandardError.ReadToEnd();
+            var ms = new MemoryStream();
+            using (var sOut = proc.StandardOutput.BaseStream)
+            {
+                byte[] buffer = new byte[4096];
+                int read;
 
-                if (ms.Length == 0)
+                while ((read = await sOut.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    throw new Exception(error);
+                    await ms.WriteAsync(buffer, 0, read);
                 }
-
-                proc.WaitForExit();
-
-                return ms.ToArray();
             }
+
+            //result.SetResult(ms);
+            if (proc.ExitCode > 0)
+            {
+                
+            }
+
+            proc.WaitForExit();
+            logsTask.Dispose();
+            return result;
         }
 
-        /// <summary>
-        /// Encode all special chars
-        /// </summary>
-        /// <param name="text">Html text</param>
-        /// <returns>Html with special chars encoded</returns>
-        private static string SpecialCharsEncode(string text)
+        private Process CreateWkHtmlProcess(string arguments)
         {
-            var chars = text.ToCharArray();
-            var result = new StringBuilder(text.Length + (int)(text.Length * 0.1));
-
-            foreach (var c in chars)
+            return new Process
             {
-                var value = System.Convert.ToInt32(c);
-                if (value > 127)
-                    result.AppendFormat("&#{0};", value);
-                else
-                    result.Append(c);
-            }
-
-            return result.ToString();
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(_wkhtmlPath, WkHtmlExe),
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    WorkingDirectory = _wkhtmlPath,
+                    CreateNoWindow = true
+                }
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class StylingOptions
+    public class StylingOptions : Options, IOptions
     {
         /// <summary>
         /// Change the dpi explicitly (this has no effect on X11 based systems)

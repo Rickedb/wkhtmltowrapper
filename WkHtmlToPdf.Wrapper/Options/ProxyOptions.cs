@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class ProxyOptions
+    public class ProxyOptions : Options, IOptions
     {
         /// <summary>
         /// Use a proxy

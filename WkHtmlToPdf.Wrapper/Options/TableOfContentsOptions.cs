@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class TableOfContentsOptions
+    public class TableOfContentsOptions : Options, IOptions
     {
         [OptionFlag("--disable-dotted-lines")]
         public bool DisableDottedLines { get; set; }

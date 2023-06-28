@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WkHtmlToPdf.Wrapper", "WkHt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rotativa.AspNetCore", "Rotativa.AspNetCore\Rotativa.AspNetCore.csproj", "{D3100EBB-AA9E-4755-B177-F119158A88CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C1408AE0-94B6-4EAF-96B5-131647A3DBEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToPdf.Wrapper.Tests", "WkHtmlToPdf.Wrapper.Tests\WkHtmlToPdf.Wrapper.Tests.csproj", "{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{D3100EBB-AA9E-4755-B177-F119158A88CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3100EBB-AA9E-4755-B177-F119158A88CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3100EBB-AA9E-4755-B177-F119158A88CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6} = {C1408AE0-94B6-4EAF-96B5-131647A3DBEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {692C5492-5C67-4B91-A329-AC3CDE1A055C}

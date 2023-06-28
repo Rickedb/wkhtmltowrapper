@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class FooterOptions
+    public class FooterOptions : Options, IOptions
     {
         /// <summary>
         /// Centered footer text

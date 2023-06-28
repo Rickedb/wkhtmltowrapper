@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class OutlineOptions
+    public class OutlineOptions : Options, IOptions
     {
         /// <summary>
         /// Dump the default TOC xsl style sheet to stdout

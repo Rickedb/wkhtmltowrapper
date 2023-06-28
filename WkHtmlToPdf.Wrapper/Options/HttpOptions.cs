@@ -2,7 +2,7 @@
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class HttpOptions
+    public class HttpOptions : Options, IOptions
     {
         /// <summary>
         /// Add HTTP headers specified by <c>--custom-header</c> for each resource request

@@ -2,7 +2,7 @@
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class CookiesOptions
+    public class CookiesOptions : Options, IOptions
     {
         /// <summary>
         /// Set an additional cookie (repeatable), value should be url encoded.

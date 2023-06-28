@@ -2,7 +2,7 @@
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class JavascriptOptions
+    public class JavascriptOptions : Options, IOptions
     {
         /// <summary>
         /// Do allow web pages to run javascript
