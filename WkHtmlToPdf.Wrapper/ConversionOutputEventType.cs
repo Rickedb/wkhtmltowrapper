@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper
 {
-    public enum OutputEventType
+    public enum ConversionOutputEventType
     {
         Information = 0,
         Error = 1,

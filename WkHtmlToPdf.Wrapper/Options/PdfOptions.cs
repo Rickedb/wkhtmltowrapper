@@ -2,8 +2,10 @@
 
 namespace WkHtmlToPdf.Wrapper.Options
 {
-    public class PdfOptions : Options, IOptions
+    public abstract class PdfOptions : Options, IOptions
     {
+        public string OutputPath { get; set; }
+
         /// <summary>
         /// Collate when printing multiple copies
         /// <para><em>AKA: <c>--collate</c> and <c>--no-collate</c></em></para>
@@ -29,7 +31,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         /// Set orientation to Landscape or Portrait
         /// <para><em>AKA: <c>--O</c> or <c>--orientation</c></em></para>
         /// </summary>
-        [OptionFlag("-O")]
+        [OptionFlag("--orientation")]
         public Orientation Orientation { get; set; } = Orientation.Portrait;
 
         /// <summary>
@@ -76,22 +78,28 @@ namespace WkHtmlToPdf.Wrapper.Options
         /// </summary>
         public string CustomExtraOptions { get; set; }
 
-        public StylingOptions Styling { get; set; } = new StylingOptions();
+        //public StylingOptions Styling { get; set; } = new StylingOptions();
         public ProxyOptions Proxy { get; set; } = new ProxyOptions();
         public PageOptions Page { get; set; } = new PageOptions();
-        public OutlineOptions Outline { get; set; } = new OutlineOptions();
-        public TableOfContentsOptions TableOfContents { get; set; } = new TableOfContentsOptions();
+        //public OutlineOptions Outline { get; set; } = new OutlineOptions();
+        //public TableOfContentsOptions TableOfContents { get; set; } = new TableOfContentsOptions();
         public CookiesOptions CookiesOptions { get; set; } = new CookiesOptions();
-        public JavascriptOptions JavascriptOptions { get; set; } = new JavascriptOptions();
-        public HttpOptions HttpOptions { get; set; } = new HttpOptions();
-        public HeaderOptions HeaderOptions { get; set; } = new HeaderOptions();
-        public FooterOptions FooterOptions { get; set; } = new FooterOptions();
+        //public JavascriptOptions JavascriptOptions { get; set; } = new JavascriptOptions();
+        //public HttpOptions HttpOptions { get; set; } = new HttpOptions();
+        //public HeaderOptions HeaderOptions { get; set; } = new HeaderOptions();
+        //public FooterOptions FooterOptions { get; set; } = new FooterOptions();
 
         public override string ToSwitchCommand()
         {
+            var command = base.ToSwitchCommand();
+            if(!string.IsNullOrWhiteSpace(CustomExtraOptions))
+            {
+                return string.Concat(command, " ", CustomExtraOptions);
+            }
+            return command;
+
             //return " --load-error-handling ignore ";
             //return " --load-media-error-handling abort ";
-            return string.Empty;
             //var command = base.ToSwitchCommand();
             //return $"{command} {CustomExtraOptions}".Trim();
         }

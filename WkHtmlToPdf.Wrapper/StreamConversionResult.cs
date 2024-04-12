@@ -30,10 +30,13 @@ namespace WkHtmlToPdf.Wrapper
             throw new AccessViolationException();
         }
 
-        internal void SetResult(MemoryStream output)
+        internal override void SetResult(object result)
         {
-            //_stopwatch.Stop();
-            Output = output;
+            base.SetResult(result);
+            if(result is MemoryStream ms)
+            {
+                Output = ms;
+            }
         }
     }
 }

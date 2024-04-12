@@ -2,6 +2,9 @@
 {
     public class TableOfContentsOptions : Options, IOptions
     {
+        [OptionFlag("--toc")]
+        public bool Enabled  => true;
+
         [OptionFlag("--disable-dotted-lines")]
         public bool DisableDottedLines { get; set; }
         [OptionFlag("--toc-header-text")]

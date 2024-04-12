@@ -1,26 +1,36 @@
-﻿namespace WkHtmlToPdf.Wrapper
+﻿using WkHtmlToPdf.Wrapper.Options;
+
+namespace WkHtmlToPdf.Wrapper
 {
-    public struct HtmlOptions
+    public class HtmlOptions : PdfOptions
     {
         public string Html { get; set; }
-        public string OutputPath { get; set; }
-    }
 
-    public struct FileOrUrlOptions
-    {
-        public string InputHtmlPathOrUrl { get; set; }
-        public string OutputPath { get; set; }
-
-        public FileOrUrlOptions(string inputHtmlPathOrUrl)
+        public HtmlOptions(string html) : this(html, null)
         {
-            InputHtmlPathOrUrl = inputHtmlPathOrUrl;
-            OutputPath = null;
+            
         }
 
-        public FileOrUrlOptions(string inputHtmlPathOrUrl, string outputPath)
+        public HtmlOptions(string html, string outputPath)
         {
-            InputHtmlPathOrUrl = inputHtmlPathOrUrl;
-            OutputPath = null;
+            Html = html;
+            OutputPath = outputPath;
+        }
+    }
+
+    public class FileOrUrlOptions : PdfOptions
+    {
+        public string FilePathOrUrl { get; set; }
+
+        public FileOrUrlOptions(string filePathOrUrl) : this(filePathOrUrl, null)
+        {
+            
+        }
+
+        public FileOrUrlOptions(string filePathOrUrl, string outputPath)
+        {
+            FilePathOrUrl = filePathOrUrl;
+            OutputPath = outputPath;
         }
     }
 }

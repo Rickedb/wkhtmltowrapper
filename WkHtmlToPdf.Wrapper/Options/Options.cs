@@ -9,7 +9,7 @@ namespace WkHtmlToPdf.Wrapper.Options
     {
         public virtual string ToSwitchCommand()
         {
-            var result = new StringBuilder();
+            var builder = new StringBuilder();
 
             var fields = GetType().GetProperties();
             foreach (var fi in fields)
@@ -20,7 +20,7 @@ namespace WkHtmlToPdf.Wrapper.Options
 
                 if (value is IOptions innerOption)
                 {
-                    result.AppendFormat(CultureInfo.InvariantCulture, " {0}", innerOption.ToSwitchCommand());
+                    builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", innerOption.ToSwitchCommand());
                     continue;
                 }
 
@@ -32,27 +32,27 @@ namespace WkHtmlToPdf.Wrapper.Options
                 {
                     foreach (var d in dictionary)
                     {
-                        result.AppendFormat(" {0} {1} {2}", flag.SwitchName, d.Key, d.Value);
+                        builder.AppendFormat(" {0} {1} {2}", flag.SwitchName, d.Key, d.Value);
                     }
                 }
                 else if (value is bool boolean)
                 {
                     if (boolean)
                     {
-                        result.AppendFormat(CultureInfo.InvariantCulture, " {0}", flag.SwitchName);
+                        builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", flag.SwitchName);
                     }
                     else if (flag is ToggleOptionFlag toggleFlag)
                     {
-                        result.AppendFormat(CultureInfo.InvariantCulture, " {0}", toggleFlag.FalseSwitchName);
+                        builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", toggleFlag.FalseSwitchName);
                     }
                 }
                 else
                 {
-                    result.AppendFormat(CultureInfo.InvariantCulture, " {0} {1}", flag.SwitchName, value);
+                    builder.AppendFormat(CultureInfo.InvariantCulture, " {0}  \"{1}\"", flag.SwitchName, value);
                 }
             }
 
-            return result.ToString().Trim();
+            return builder.ToString().Trim();
         }
     }
 }

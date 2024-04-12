@@ -3,42 +3,42 @@ using System.Linq;
 
 namespace WkHtmlToPdf.Wrapper
 {
-    public readonly struct OutputEvent
+    public readonly struct ConversionOutputEvent
     {
         public string Message { get; }
-        public OutputEventType EventType { get; }
+        public ConversionOutputEventType EventType { get; }
 
-        private OutputEvent(string message, OutputEventType eventType)
+        private ConversionOutputEvent(string message, ConversionOutputEventType eventType)
         {
             Message = message;
             EventType = eventType;
         }
 
-        internal static OutputEvent Parse(string message)
+        internal static ConversionOutputEvent Parse(string message)
         {
             message = message.Trim();
             if (message.StartsWith("Error", StringComparison.OrdinalIgnoreCase))
             {
-                return new OutputEvent(message, OutputEventType.Error);
+                return new ConversionOutputEvent(message, ConversionOutputEventType.Error);
             }
 
             if (message.StartsWith("["))
             {
-                var type = message.EndsWith("%") ? OutputEventType.OverallProgress : OutputEventType.InnerStepProgress;
-                return new OutputEvent(message, type);
+                var type = message.EndsWith("%") ? ConversionOutputEventType.OverallProgress : ConversionOutputEventType.InnerStepProgress;
+                return new ConversionOutputEvent(message, type);
             }
 
             if (message.EndsWith(")"))
             {
-                return new OutputEvent(message, OutputEventType.OverallStep);
+                return new ConversionOutputEvent(message, ConversionOutputEventType.OverallStep);
             }
 
-            return new OutputEvent(message, OutputEventType.Information);
+            return new ConversionOutputEvent(message, ConversionOutputEventType.Information);
         }
 
         internal ProgressStep GetOverallStep()
         {
-            if (EventType == OutputEventType.OverallStep)
+            if (EventType == ConversionOutputEventType.OverallStep)
             {
                 return ProgressStep.ParseOverallProgressStep(Message);
             }
@@ -47,7 +47,7 @@ namespace WkHtmlToPdf.Wrapper
 
         internal int GetOverallProgress()
         {
-            if(EventType == OutputEventType.OverallProgress)
+            if(EventType == ConversionOutputEventType.OverallProgress)
             {
                 var percentage = Message.Split(']').LastOrDefault();
                 if(percentage != default)
@@ -62,7 +62,7 @@ namespace WkHtmlToPdf.Wrapper
 
         internal Tuple<int, int> GetStepProgress()
         {
-            if (EventType == OutputEventType.InnerStepProgress)
+            if (EventType == ConversionOutputEventType.InnerStepProgress)
             {
             }
 

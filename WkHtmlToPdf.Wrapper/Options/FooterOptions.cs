@@ -56,6 +56,6 @@
         /// <para><em>AKA: <c>--footer-spacing</c></em></para>
         /// </summary>
         [OptionFlag("--footer-spacing")]
-        public double Spacing { get; set; } = 0;
+        public double Spacing { get; set; } = 1;
     }
 }

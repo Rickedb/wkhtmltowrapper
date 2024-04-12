@@ -1,17 +1,29 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace WkHtmlToPdf.Wrapper
 {
     internal class FileConversionResult : ConversionResult
     {
+        private Lazy<byte[]> _lazyFileBytes;
         private byte[] _fileBytes;
         private FileInfo _fileInfo;
 
         public override long TotalBytes => GetFileSize();
         public override bool Success => _fileInfo != default && _fileInfo.Exists;
 
+        public FileConversionResult()
+        {
+            _lazyFileBytes = new Lazy<byte[]>(ReadBytes);
+        }
+
         public override byte[] GetBytes()
         {
+            if(_lazyFileBytes.IsValueCreated)
+            {
+                return _lazyFileBytes.Value;
+            }
+
             if (!Success)
             {
                 throw new FileNotFoundException("Could not find converted file", _fileInfo.FullName);
@@ -34,9 +46,23 @@ namespace WkHtmlToPdf.Wrapper
             return File.OpenRead(_fileInfo.FullName);
         }
 
-        internal void SetResult(string filePath)
+        internal override void SetResult(object result)
         {
-            _fileInfo = new FileInfo(filePath);
+            base.SetResult(result);
+            if (result is string filePath)
+            {
+                _fileInfo = new FileInfo(filePath);
+            }
+        }
+
+        private byte[] ReadBytes()
+        {
+            if(_fileInfo == null)
+            {
+                return Array.Empty<byte>();
+            }
+
+            return File.ReadAllBytes(_fileInfo.FullName);
         }
 
         private long GetFileSize()
