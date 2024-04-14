@@ -18,7 +18,7 @@ namespace WkHtmlToPdf.Wrapper
 
         public WkHtmlToPdfWrapper()
         {
-
+            _wkhtmlPath = string.Empty;
         }
 
         public WkHtmlToPdfWrapper(string wkhtmlExecutablePath)
@@ -32,47 +32,9 @@ namespace WkHtmlToPdf.Wrapper
         public Task<ConversionResult> GenerateAsync(FileOrUrlOptions options, CancellationToken cancellationToken = default)
             => ConvertAsync(options, cancellationToken);
 
-
-        /// <summary>
-        /// Converts given HTML string to PDF.
-        /// </summary>
-        /// <param name="wkhtmltopdfPath">Path to wkthmltopdf.</param>
-        /// <param name="switches">Switches that will be passed to wkhtmltopdf binary.</param>
-        /// <param name="html">String containing HTML code that should be converted to PDF.</param>
-        /// <returns>PDF as byte array.</returns>
-        public ConversionResult ConvertFromHtml(string switches, string html)
-        {
-            throw new NotImplementedException();
-            //return ConvertAsync(switches, html, wkhtmlExe).Result; //TODO: Remove .Result
-        }
-
-        /// <summary>
-        /// Converts given HTML string to PDF.
-        /// </summary>
-        /// <param name="wkhtmltopdfPath">Path to wkthmltopdf.</param>
-        /// <param name="switches">Switches that will be passed to wkhtmltopdf binary.</param>
-        /// <param name="html">String containing HTML code that should be converted to PDF.</param>
-        /// <returns>PDF as byte array.</returns>
-        public ConversionResult ConvertFromHtml(PdfOptions options, string html)
-        {
-            var switches = options.ToSwitchCommand();
-            return ConvertFromHtml(switches, html);
-        }
-
-        public Task<ConversionResult> ConvertHtmlAsync(string switches, string html)
-        {
-            throw new NotImplementedException();
-            //ConvertAsync(switches, html, wkhtmlExe);
-        }
-
-        public Task<ConversionResult> GenerateAsync(PdfOptions options, string html)
-        {
-            var switches = options.ToSwitchCommand();
-            return ConvertHtmlAsync(switches, html);
-        }
-
         private async Task<ConversionResult> ConvertAsync(PdfOptions options, CancellationToken cancellationToken)
         {
+            
             // switches:
             //     " -"  - switch output to stdout
             //     "- -" - switch input to stdin and output to stdout

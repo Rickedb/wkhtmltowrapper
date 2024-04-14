@@ -181,7 +181,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         Inline
     }
 
-    public enum LogLevel
+    public enum PromptLogLevel
     {
         None,
         Error,

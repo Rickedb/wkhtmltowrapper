@@ -175,12 +175,6 @@ namespace Rotativa.AspNetCore.Options
         PNG
     }
 
-    public enum ContentDisposition
-    {
-        Attachment = 0, // this is the default
-        Inline
-    }
-
     public enum LogLevel
     {
         None,

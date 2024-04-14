@@ -14,7 +14,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         public bool Collate { get; set; } = true;
         
         /// <summary>
-        /// Number of copies to print into the pdf file(default 1)
+        /// Number of copies to print into the pdf file (default 1)
         /// <para><em>AKA: <c>--copies</c></em></para>
         /// </summary>
         [OptionFlag("--copies")]
@@ -25,7 +25,7 @@ namespace WkHtmlToPdf.Wrapper.Options
         /// <para><em>AKA: <c>--log-level</c></em></para>
         /// </summary>
         [OptionFlag("--log-level")]
-        public LogLevel LogLevel { get; set; } = LogLevel.Info;
+        public PromptLogLevel LogLevel { get; set; } = PromptLogLevel.Info;
 
         /// <summary>
         /// Set orientation to Landscape or Portrait

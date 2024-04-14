@@ -7,6 +7,7 @@ namespace WkHtmlToPdf.Wrapper.Options
 {
     public abstract class Options : IOptions
     {
+       
         public virtual string ToSwitchCommand()
         {
             var builder = new StringBuilder();

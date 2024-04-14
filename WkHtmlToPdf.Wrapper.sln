@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rotativa.AspNetCore", "Rota
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C1408AE0-94B6-4EAF-96B5-131647A3DBEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToPdf.Wrapper.Tests", "WkHtmlToPdf.Wrapper.Tests\WkHtmlToPdf.Wrapper.Tests.csproj", "{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WkHtmlToPdf.Wrapper.Tests", "WkHtmlToPdf.Wrapper.Tests\WkHtmlToPdf.Wrapper.Tests.csproj", "{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToPdf.Wrapper.AspNetCore", "WkHtmlToPdf.Wrapper.AspNetCore\WkHtmlToPdf.Wrapper.AspNetCore.csproj", "{2C92441E-73FA-4314-97FD-21AE3DF7927F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToPdf.Wrapper.Mvc.Test", "WkHtmlToPdf.Wrapper.Mvc.Test\WkHtmlToPdf.Wrapper.Mvc.Test.csproj", "{7EB922E3-AF83-4648-9252-4FD28E8C2F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToPdf.Wrapper.BlazorServer.Tests", "WkHtmlToPdf.Wrapper.BlazorServer.Tests\WkHtmlToPdf.Wrapper.BlazorServer.Tests.csproj", "{3E9C82F4-8830-459C-A633-BA49E2C60D10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +35,26 @@ Global
 		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C92441E-73FA-4314-97FD-21AE3DF7927F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C92441E-73FA-4314-97FD-21AE3DF7927F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C92441E-73FA-4314-97FD-21AE3DF7927F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C92441E-73FA-4314-97FD-21AE3DF7927F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB922E3-AF83-4648-9252-4FD28E8C2F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB922E3-AF83-4648-9252-4FD28E8C2F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB922E3-AF83-4648-9252-4FD28E8C2F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB922E3-AF83-4648-9252-4FD28E8C2F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9C82F4-8830-459C-A633-BA49E2C60D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9C82F4-8830-459C-A633-BA49E2C60D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9C82F4-8830-459C-A633-BA49E2C60D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9C82F4-8830-459C-A633-BA49E2C60D10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8E0A8653-FD6E-4692-9C6E-70A4BC99C6E6} = {C1408AE0-94B6-4EAF-96B5-131647A3DBEF}
+		{7EB922E3-AF83-4648-9252-4FD28E8C2F87} = {C1408AE0-94B6-4EAF-96B5-131647A3DBEF}
+		{3E9C82F4-8830-459C-A633-BA49E2C60D10} = {C1408AE0-94B6-4EAF-96B5-131647A3DBEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {692C5492-5C67-4B91-A329-AC3CDE1A055C}
