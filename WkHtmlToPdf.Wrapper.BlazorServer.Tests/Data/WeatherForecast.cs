@@ -1,3 +1,5 @@
+using System;
+
 namespace WkHtmlToPdf.Wrapper.BlazorServer.Tests.Data
 {
     public class WeatherForecast

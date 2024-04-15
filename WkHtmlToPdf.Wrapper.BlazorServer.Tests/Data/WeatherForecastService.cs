@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace WkHtmlToPdf.Wrapper.BlazorServer.Tests.Data
 {
     public class WeatherForecastService

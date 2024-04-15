@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WkHtmlToPdf.Wrapper.AspNetCore;
+using WkHtmlToPdf.Wrapper.AspNetCore.Mvc;
 using WkHtmlToPdf.Wrapper.Mvc.Test.Models;
 
 namespace WkHtmlToPdf.Wrapper.Mvc.Test.Controllers
@@ -16,7 +16,7 @@ namespace WkHtmlToPdf.Wrapper.Mvc.Test.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new HomeViewModel());
         }
 
         public IActionResult Privacy()
@@ -32,7 +32,7 @@ namespace WkHtmlToPdf.Wrapper.Mvc.Test.Controllers
 
         public IActionResult Export()
         {
-            var result = new PdfViewResult("Index");
+            var result = new PdfViewResult("Index", new HomeViewModel());
             return result;
         }
     }

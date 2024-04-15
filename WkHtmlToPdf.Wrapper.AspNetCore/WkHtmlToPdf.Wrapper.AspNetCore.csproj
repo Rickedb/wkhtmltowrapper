@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <ImplicitUsings>'disable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
   </PropertyGroup>
   
@@ -11,6 +11,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlToPdf.Wrapper\WkHtmlToPdf.Wrapper.csproj" />
+    <Folder Include="Mvc\Options\" />
   </ItemGroup>
 </Project>

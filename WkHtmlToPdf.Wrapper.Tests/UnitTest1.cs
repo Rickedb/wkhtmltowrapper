@@ -1,5 +1,8 @@
 using System.Diagnostics;
-using WkHtmlToPdf.Wrapper.Options;
+using System.IO;
+using System.Threading.Tasks;
+using WkHtmlToPdf.Wrapper.AspNetCore;
+using WkHtmlToPdf.Wrapper.AspNetCore.Options;
 
 namespace WkHtmlToPdf.Wrapper.Tests
 {
