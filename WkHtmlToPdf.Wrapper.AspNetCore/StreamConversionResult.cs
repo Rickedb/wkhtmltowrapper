@@ -35,6 +35,7 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore
             base.SetResult(result);
             if (result is MemoryStream ms)
             {
+                ms.Position = 0;
                 Output = ms;
             }
         }

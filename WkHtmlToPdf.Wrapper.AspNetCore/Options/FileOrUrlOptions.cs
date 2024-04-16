@@ -1,18 +1,17 @@
 ﻿namespace WkHtmlToPdf.Wrapper.AspNetCore.Options
 {
-    public class FileOrUrlOptions : PdfOptions
+    public class FileOrUrlOptions : PdfOptions, IFileOrUrlOptions
     {
-        public string FilePathOrUrl { get; set; }
+        public string HtmlFilePathOrUrl { get; set; }
 
         public FileOrUrlOptions(string filePathOrUrl) : this(filePathOrUrl, null)
         {
 
         }
 
-        public FileOrUrlOptions(string filePathOrUrl, string outputPath)
+        public FileOrUrlOptions(string filePathOrUrl, string outputPath) : base(outputPath)
         {
-            FilePathOrUrl = filePathOrUrl;
-            OutputPath = outputPath;
+            HtmlFilePathOrUrl = filePathOrUrl;
         }
     }
 }

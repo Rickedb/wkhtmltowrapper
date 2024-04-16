@@ -34,15 +34,11 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore
             _logger = logger;
         }
 
-        public Task<ConversionResult> GenerateAsync(HtmlOptions options, CancellationToken cancellationToken = default)
+        public Task<ConversionResult> GenerateAsync<TOptions>(TOptions options, CancellationToken cancellationToken = default) where TOptions : IPdfOptions
             => ConvertAsync(options, cancellationToken);
 
-        public Task<ConversionResult> GenerateAsync(FileOrUrlOptions options, CancellationToken cancellationToken = default)
-            => ConvertAsync(options, cancellationToken);
-
-        private async Task<ConversionResult> ConvertAsync(PdfOptions options, CancellationToken cancellationToken)
+        private async Task<ConversionResult> ConvertAsync(IPdfOptions options, CancellationToken cancellationToken)
         {
-            
             // switches:
             //     " -"  - switch output to stdout
             //     "- -" - switch input to stdin and output to stdout
@@ -51,9 +47,9 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore
             //     "<url/file-path> <path>" - just paths
             //switches += " -";
             var args = new StringBuilder(options.ToSwitchCommand());
-            if(options is FileOrUrlOptions fileOrUrlOptions)
+            if(options is IFileOrUrlOptions fileOrUrlOptions)
             {
-                args.Append($" \"{fileOrUrlOptions.FilePathOrUrl}\"");
+                args.Append($" \"{fileOrUrlOptions.HtmlFilePathOrUrl}\"");
             }
             else
             {
@@ -84,7 +80,7 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore
                 CreateNoWindow = true
             });
 
-            if (options is HtmlOptions htmlOptions)
+            if (options is IHtmlOptions htmlOptions)
             {
                 using (var stdIn = proc.StandardInput)
                 {

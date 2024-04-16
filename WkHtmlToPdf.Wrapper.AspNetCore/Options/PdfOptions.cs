@@ -2,7 +2,7 @@
 
 namespace WkHtmlToPdf.Wrapper.AspNetCore.Options
 {
-    public abstract class PdfOptions : Options, IOptions
+    public abstract class PdfOptions : Options, IPdfOptions
     {
         public string OutputPath { get; set; }
 
@@ -84,10 +84,22 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore.Options
         //public OutlineOptions Outline { get; set; } = new OutlineOptions();
         //public TableOfContentsOptions TableOfContents { get; set; } = new TableOfContentsOptions();
         public CookiesOptions CookiesOptions { get; set; } = new CookiesOptions();
+
+
         //public JavascriptOptions JavascriptOptions { get; set; } = new JavascriptOptions();
         //public HttpOptions HttpOptions { get; set; } = new HttpOptions();
         //public HeaderOptions HeaderOptions { get; set; } = new HeaderOptions();
         //public FooterOptions FooterOptions { get; set; } = new FooterOptions();
+
+        protected PdfOptions()
+        {
+            
+        }
+
+        protected PdfOptions(string outputPath)
+        {
+            OutputPath = outputPath;
+        }
 
         public override string ToSwitchCommand()
         {

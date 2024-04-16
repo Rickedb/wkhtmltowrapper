@@ -30,9 +30,24 @@ namespace WkHtmlToPdf.Wrapper.Mvc.Test.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Export()
+        public IActionResult ViewPdf()
         {
             var result = new PdfViewResult("Index", new HomeViewModel());
+            return result;
+        }
+
+        public IActionResult Download()
+        {
+            var result = new PdfFileStreamResult("Privacy");
+            return result;
+        }
+
+        public IActionResult DownloadBytes()
+        {
+            var result = new PdfFileContentResult()
+            {
+                ViewName = "Privacy"
+            };
             return result;
         }
     }

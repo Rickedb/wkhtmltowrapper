@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -13,114 +15,44 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WkHtmlToPdf.Wrapper.AspNetCore.Extensions;
+using WkHtmlToPdf.Wrapper.AspNetCore.Mvc.Rendering;
 using WkHtmlToPdf.Wrapper.AspNetCore.Options;
 
 namespace WkHtmlToPdf.Wrapper.AspNetCore.Mvc
 {
     public class PdfFileStreamResult : FileStreamResult
     {
-        public RazorPdfViewOptions Options { get; set; } = new RazorPdfViewOptions();
+        public string ViewName { get; set; }
+        public object Model => ViewData.Model;
+        public ViewDataDictionary ViewData { get; set; }
+        public ContentDisposition ContentDisposition { get; set; }
+        public IRazorOptions Options { get; set; } = new RazorPdfOptions();
 
-        public PdfFileStreamResult() : base(Stream.Null, "application/pdf")
+        public PdfFileStreamResult() : this(null)
         {
+
+        }
+
+        public PdfFileStreamResult(string viewName) : base(Stream.Null, "application/pdf")
+        {
+            ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+            ViewName = viewName;
+        }
+
+        public PdfFileStreamResult(string viewName, object model) : base(Stream.Null, "application/pdf")
+        {
+            ViewName = viewName;
         }
 
         public override async Task ExecuteResultAsync(ActionContext context)
         {
-            FileStream = await BuildFileStreamAsync(context);
-            FileDownloadName = Options.Filename;
-            
+            await Options.RenderViewToHtmlAsync(context, ViewData, ViewName);
+            var wrapper = context.HttpContext.RequestServices.GetService<WkHtmlToPdfWrapper>();
+            var result = await wrapper.GenerateAsync(Options);
+            FileStream = result.GetStream();
+            context.HttpContext.Response.Prepare(ContentDisposition, FileDownloadName);
             await base.ExecuteResultAsync(context);
-        }
-
-        public async Task<Stream> BuildFileStreamAsync(ActionContext context)
-        {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
-
-            var fileContent = await GeneratePdfAsync(context);
-            return fileContent.GetStream();
-        }
-
-        protected async Task<ConversionResult> GeneratePdfAsync(ActionContext context)
-        {
-            var options = await Options.ToHtmlOptionsAsync(this, context);
-            var wrapper = context.HttpContext.RequestServices.GetService< WkHtmlToPdfWrapper>();
-            return await wrapper.GenerateAsync(options);
-        }
-
-
-        private static async Task<string> GenerateHtmlFromViewAsync<TViewResult>(TViewResult viewResult, ActionContext context) where TViewResult : ViewResult
-        {
-            string viewName = viewResult.ViewName;
-            if (string.IsNullOrWhiteSpace(viewName))
-            {
-                viewName = context.ActionDescriptor switch
-                {
-                    CompiledPageActionDescriptor compiledPageActionDescriptor => compiledPageActionDescriptor.RelativePath,
-                    ControllerActionDescriptor controllerActionDescriptor => controllerActionDescriptor.ActionName,
-                    _ => throw new ArgumentNullException(viewName, nameof(viewName))
-                };
-            }
-
-            ViewEngineResult viewEngine = ResolveView(context, viewName);
-            var tempDataProvider = context.HttpContext.RequestServices.GetService<ITempDataProvider>();
-
-            //var viewDataDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-            //{
-            //    Model = viewResult.ViewData.Model
-            //};
-
-            //if (viewResult.ViewData != null)
-            //{
-            //    foreach (var item in viewResult.ViewData)
-            //    {
-            //        viewDataDictionary.Add(item);
-            //    }
-            //}
-
-            using (var output = new StringWriter())
-            {
-                var view = viewEngine.View;
-                var tempDataDictionary = new TempDataDictionary(context.HttpContext, tempDataProvider);
-                var viewContext = new ViewContext(
-                    context,
-                    viewEngine.View,
-                    viewResult.ViewData,
-                    tempDataDictionary,
-                    output,
-                    new HtmlHelperOptions());
-
-                await view.RenderAsync(viewContext);
-
-                string baseUrl = string.Format("{0}://{1}", context.HttpContext.Request.Scheme, context.HttpContext.Request.Host);
-
-                var html = output.GetStringBuilder().ToString();
-                html = Regex.Replace(html, "<head>", string.Format("<head><base href=\"{0}\" />", baseUrl), RegexOptions.IgnoreCase);
-                return html;
-            }
-        }
-
-        private static ViewEngineResult ResolveView(ActionContext context, string viewName)
-        {
-            var engine = context.HttpContext.RequestServices.GetService<ICompositeViewEngine>();
-            var getViewResult = engine.GetView(executingFilePath: null, viewPath: viewName, isMainPage: true);
-            if (getViewResult.Success)
-            {
-                return getViewResult;
-            }
-
-            var findViewResult = engine.FindView(context, viewName, isMainPage: true);
-            if (findViewResult.Success)
-            {
-                return findViewResult;
-            }
-
-            var searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
-            var errorMessage = string.Join(
-                Environment.NewLine,
-                new[] { $"Unable to find view '{viewName}'. The following locations were searched:" }.Concat(searchedLocations));
-
-            throw new InvalidOperationException(errorMessage);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WkHtmlToPdf.Wrapper.AspNetCore.Options
 {
-    public class HtmlOptions : PdfOptions
+    public class HtmlOptions : PdfOptions, IHtmlOptions
     {
         public string Html { get; set; }
 
@@ -9,10 +9,9 @@
 
         }
 
-        public HtmlOptions(string html, string outputPath)
+        public HtmlOptions(string html, string outputPath) : base(outputPath) 
         {
             Html = html;
-            OutputPath = outputPath;
         }
     }
 }
