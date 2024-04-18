@@ -14,7 +14,7 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore.Mvc
         public string ViewName { get; set; }
         public object Model => ViewData.Model;
         public ViewDataDictionary ViewData { get; set; }
-        public IRazorOptions Options { get; set; } = new RazorPdfOptions();
+        public IRazorViewOptions Options { get; set; } = new RazorViewPdfOptions();
         public ContentDisposition ContentDisposition { get; set; }
 
         public PdfFileContentResult() : base(Array.Empty<byte>(), "application/pdf")

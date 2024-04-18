@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlToPdf.Wrapper.AspNetCore\WkHtmlToPdf.Wrapper.AspNetCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Executables\wkhtmltopdf.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

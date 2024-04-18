@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +12,7 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore.Mvc
     public class PdfViewResult : ViewResult
     {
         public ContentDisposition ContentDisposition { get; set; }
-        public IRazorOptions Options { get; } = new RazorPdfOptions();
+        public IRazorViewOptions Options { get; } = new RazorViewPdfOptions();
 
         public PdfViewResult(ViewDataDictionary viewData = null)
         {

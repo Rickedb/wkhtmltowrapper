@@ -1,22 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Net.Http.Headers;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WkHtmlToPdf.Wrapper.AspNetCore.Extensions;
-using WkHtmlToPdf.Wrapper.AspNetCore.Mvc.Rendering;
 using WkHtmlToPdf.Wrapper.AspNetCore.Options;
 
 namespace WkHtmlToPdf.Wrapper.AspNetCore.Mvc
@@ -27,7 +15,7 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore.Mvc
         public object Model => ViewData.Model;
         public ViewDataDictionary ViewData { get; set; }
         public ContentDisposition ContentDisposition { get; set; }
-        public IRazorOptions Options { get; set; } = new RazorPdfOptions();
+        public IRazorViewOptions Options { get; set; } = new RazorViewPdfOptions();
 
         public PdfFileStreamResult() : this(null)
         {

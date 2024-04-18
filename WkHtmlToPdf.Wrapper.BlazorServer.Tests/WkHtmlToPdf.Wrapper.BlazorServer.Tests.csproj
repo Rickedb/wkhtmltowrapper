@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlToPdf.Wrapper.AspNetCore\WkHtmlToPdf.Wrapper.AspNetCore.csproj" />
+    <ProjectReference Include="..\WkHtmlTo.Wrapper.BlazorServer\WkHtmlTo.Wrapper.BlazorServer.csproj" />
   </ItemGroup>
 
 </Project>

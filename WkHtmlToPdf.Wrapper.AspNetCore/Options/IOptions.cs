@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Threading.Tasks;
 
@@ -24,8 +25,17 @@ namespace WkHtmlToPdf.Wrapper.AspNetCore.Options
         string Html { get; set; }
     }
 
-    public interface IRazorOptions : IHtmlOptions
+    public interface IRazorViewOptions : IHtmlOptions
     {
         Task RenderViewToHtmlAsync(ActionContext actionContext, ViewDataDictionary viewData, string viewName);
+    }
+    public interface IComponentOptions : IHtmlOptions
+    {
+        Task RenderComponentToHtmlAsync(PageContext pageContext, ViewDataDictionary viewData, string pageName);
+    }
+
+    public interface IRazorPageOptions : IHtmlOptions
+    {
+        Task RenderPageToHtmlAsync(PageContext pageContext, ViewDataDictionary viewData, string pageName);
     }
 }
