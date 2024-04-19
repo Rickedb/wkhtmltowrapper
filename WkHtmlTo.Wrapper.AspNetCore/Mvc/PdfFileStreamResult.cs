@@ -20,20 +20,38 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
         public ContentDisposition ContentDisposition { get; set; }
         public IRazorViewOptions Options { get; set; } = new RazorViewPdfOptions();
 
-        public PdfFileStreamResult() : this(null)
+        public PdfFileStreamResult(ViewDataDictionary viewData = null) :base(Stream.Null, "application/pdf")
         {
-
+            ViewName = string.Empty;
+            if (ViewData == null)
+            {
+                ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+            }
         }
 
-        public PdfFileStreamResult(string viewName) : base(Stream.Null, "application/pdf")
+        public PdfFileStreamResult(string viewName, ViewDataDictionary viewData = null)
+            : this(viewData)
         {
-            ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
             ViewName = viewName;
         }
 
-        public PdfFileStreamResult(string viewName, object model) : base(Stream.Null, "application/pdf")
+        public PdfFileStreamResult(object model, ViewDataDictionary viewData = null)
+            : this(viewData)
+        {
+            ViewData.Model = model;
+        }
+
+        public PdfFileStreamResult(string viewName, object model, ViewDataDictionary viewData = null)
+            : this(viewData)
         {
             ViewName = viewName;
+            ViewData.Model = model;
+        }
+
+        public PdfFileStreamResult(string viewName, object model)
+            : this(viewName, model, null)
+        {
+
         }
 
         public override async Task ExecuteResultAsync(ActionContext context)
@@ -45,7 +63,7 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
             var onLog = new EventHandler<ConversionOutputEvent>((object sender, ConversionOutputEvent e) => logger.LogDebug(e.Message));
 
             wrapper.OutputEvent += onLog;
-            var result = await wrapper.GenerateAsync(Options);
+            var result = await wrapper.ConvertAsync(Options);
             wrapper.OutputEvent -= onLog;
 
             FileStream = result.GetStream();

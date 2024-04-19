@@ -5,7 +5,7 @@ namespace WkHtmlTo.Wrapper
 {
     internal class FileConversionResult : ConversionResult
     {
-        private Lazy<byte[]> _lazyFileBytes;
+        private readonly Lazy<byte[]> _lazyFileBytes;
         private byte[] _fileBytes;
         private FileInfo _fileInfo;
 

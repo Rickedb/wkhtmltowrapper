@@ -25,7 +25,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// <para><em>AKA: <c>--log-level</c></em></para>
         /// </summary>
         [OptionFlag("--log-level")]
-        public PromptLogLevel LogLevel { get; set; } = PromptLogLevel.Info;
+        public PromptLogLevel LogLevel { get; set; } = PromptLogLevel.Error;
 
         /// <summary>
         /// Set orientation to Landscape or Portrait

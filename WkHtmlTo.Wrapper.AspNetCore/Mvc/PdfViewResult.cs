@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using WkHtmlTo.Wrapper.AspNetCore.Extensions;
 using WkHtmlTo.Wrapper.AspNetCore.Options;
 using WkHtmlTo.Wrapper.Logging;
 
@@ -55,11 +56,13 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
 
             var logger = context.HttpContext.RequestServices.GetService<ILogger<PdfViewResult>>();
             var wrapper = context.HttpContext.RequestServices.GetService<WkHtmlToPdfWrapper>();
-            var onLog = new EventHandler<ConversionOutputEvent>((object sender, ConversionOutputEvent e) => logger.LogDebug(e.Message));
+            var onLog = new EventHandler<ConversionOutputEvent>((object sender, ConversionOutputEvent e) => logger?.Log(e));
 
             wrapper.OutputEvent += onLog;
-            await wrapper.GenerateAsync(Options);
+            var result = await wrapper.ConvertAsync(Options);
             wrapper.OutputEvent -= onLog;
+            var response = context.HttpContext.Response.Prepare(ContentDisposition, ViewName);
+            await response.Body.WriteAsync(result.GetBytes());
         }
     }
 }

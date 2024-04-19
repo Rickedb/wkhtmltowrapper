@@ -18,7 +18,7 @@ namespace WkHtmlToPdf.Wrapper.BlazorServer.Tests.Pages
         public async Task RunAsync()
         {
             
-            await Renderer.GenerateAsync<Counter>();
+            await Renderer.GenerateAndDownloadAsync<Counter>();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace WkHtmlTo.Wrapper.BlazorServer.Options
 {
     public interface IComponentOptions : IHtmlOptions
     {
+        string Filename { get; set; }
         Task RenderHtmlFromComponentAsync<TComponent>(HtmlRenderer renderer) where TComponent : IComponent;
     }
 }

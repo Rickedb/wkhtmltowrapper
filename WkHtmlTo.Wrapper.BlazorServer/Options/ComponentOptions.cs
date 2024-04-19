@@ -9,10 +9,21 @@ namespace WkHtmlTo.Wrapper.BlazorServer.Options
     public class ComponentOptions : PdfOptions, IComponentOptions
     {
         public string Html { get; set; }
+        public string Filename { get; set; }
+
+        public ComponentOptions()
+        {
+            
+        }
+
+        public ComponentOptions(string filename)
+        {
+            Filename = filename;
+        }
 
         public async Task RenderHtmlFromComponentAsync<TComponent>(HtmlRenderer renderer) where TComponent : IComponent
         {
-            Html = await renderer.Dispatcher.InvokeAsync<string>(async () =>
+            Html = await renderer.Dispatcher.InvokeAsync(async () =>
             {
                 using var output = new StringWriter();
                 var htmlComponent = await renderer.RenderComponentAsync<TComponent>();

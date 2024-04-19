@@ -26,8 +26,11 @@ namespace WkHtmlTo.Wrapper
             _wkHtmlPath = wkHtmlExecutablePath;
         }
 
-        public Task<ConversionResult> GenerateAsync<TOptions>(TOptions options, CancellationToken cancellationToken = default) where TOptions : IPdfOptions
-            => ConvertAsync(options, cancellationToken);
+        public Task<ConversionResult> ConvertAsync(IHtmlOptions options, CancellationToken cancellationToken = default)
+            => ConvertAsync((IPdfOptions)options, cancellationToken);
+
+        public Task<ConversionResult> ConvertAsync(IFileOrUrlOptions options, CancellationToken cancellationToken = default)
+            => ConvertAsync((IPdfOptions)options, cancellationToken);
 
         private async Task<ConversionResult> ConvertAsync(IPdfOptions options, CancellationToken cancellationToken)
         {

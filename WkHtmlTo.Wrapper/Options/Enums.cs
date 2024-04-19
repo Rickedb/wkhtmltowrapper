@@ -181,7 +181,7 @@ namespace WkHtmlTo.Wrapper.Options
     {
         None,
         Error,
-        Warning,
+        Warn,
         Info
     }
 

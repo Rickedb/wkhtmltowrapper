@@ -1,22 +1,17 @@
-﻿using WkHtmlTo.Wrapper.Logging;
-using WkHtmlTo.Wrapper.Options;
+﻿using Microsoft.Extensions.Logging;
+using WkHtmlTo.Wrapper.Logging;
 
 namespace Microsoft.Extensions.Logging
 {
-    internal static class LoggingExtensions
+    public static class LoggerExtensions
     {
-        public static LogLevel ToLogLevel(this PromptLogLevel promptLogLevel)
+        public static void Log<T>(this ILogger<T> logger, ConversionOutputEvent ev)
         {
-            return promptLogLevel switch
-            {
-                PromptLogLevel.Error => LogLevel.Error,
-                PromptLogLevel.Warn => LogLevel.Warning,
-                PromptLogLevel.Info => LogLevel.Information,
-                _ => LogLevel.None,
-            };
+            var logLevel = ev.EventType.AsLogLevel();
+            logger.Log(logLevel, "[{Type}]: {Message}", ev.EventType, ev.Message);
         }
 
-        public static LogLevel ToLogLevel(this ConversionOutputEventType type)
+        public static LogLevel AsLogLevel(this ConversionOutputEventType type)
         {
             return type switch
             {
