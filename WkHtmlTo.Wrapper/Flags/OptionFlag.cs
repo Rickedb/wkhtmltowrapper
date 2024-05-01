@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace Rotativa.AspNetCore.Options
+namespace WkHtmlTo.Wrapper.Flags
 {
     internal class OptionFlag : Attribute
     {
-        public string Name { get; private set; }
+        public string SwitchName { get; private set; }
 
         public OptionFlag(string name)
         {
-            Name = name;
+            SwitchName = name;
         }
     }
 }

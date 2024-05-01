@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
@@ -33,10 +34,10 @@ namespace WkHtmlTo.Wrapper.Options
         public int FinishDelay { get; set; } = 200;
 
         /// <summary>
-        /// Run this additional javascript after the page is done loading
+        /// Run this additional javascript after the page is done loading.
         /// <para><em>AKA: <c>--run-script</c></em></para>
         /// </summary>
         [OptionFlag("--run-script")]
-        public List<string> Scripts { get; set; }
+        public string Scripts { get; set; } //TODO: List of scripts
     }
 }

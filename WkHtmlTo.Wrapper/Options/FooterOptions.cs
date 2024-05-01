@@ -1,4 +1,6 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿using WkHtmlTo.Wrapper.Flags;
+
+namespace WkHtmlTo.Wrapper.Options
 {
     public class FooterOptions : Options, IOptions
     {
@@ -27,8 +29,8 @@
         /// Adds a html footer
         /// <para><em>AKA: <c>--footer-html</c></em></para>
         /// </summary>
-        [OptionFlag("--footer-html")]
-        public string HtmlUrl { get; set; }
+        [PathOptionFlag("--footer-html")]
+        public string Html { get; set; }
 
         /// <summary>
         /// Left aligned footer text

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {

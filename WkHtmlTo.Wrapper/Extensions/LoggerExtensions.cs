@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using WkHtmlTo.Wrapper.Logging;
+﻿using WkHtmlTo.Wrapper.Logging;
 
 namespace Microsoft.Extensions.Logging
 {
@@ -13,15 +12,19 @@ namespace Microsoft.Extensions.Logging
 
         public static LogLevel AsLogLevel(this ConversionOutputEventType type)
         {
-            return type switch
+            switch(type)
             {
-                ConversionOutputEventType.Information => LogLevel.Information,
-                ConversionOutputEventType.Error => LogLevel.Information,
-                ConversionOutputEventType.OverallProgress => LogLevel.Information,
-                ConversionOutputEventType.OverallStep => LogLevel.Information,
-                ConversionOutputEventType.InnerStep => LogLevel.Debug,
-                ConversionOutputEventType.InnerStepProgress => LogLevel.Debug,
-                _ => LogLevel.None
+                case ConversionOutputEventType.Information: 
+                case ConversionOutputEventType.OverallStep: 
+                case ConversionOutputEventType.OverallProgress: 
+                    return LogLevel.Information;
+                case ConversionOutputEventType.InnerStep: 
+                case ConversionOutputEventType.InnerStepProgress: 
+                    return LogLevel.Debug;
+                case ConversionOutputEventType.Error: 
+                    return LogLevel.Error;
+                default: 
+                    return LogLevel.None;
             };
         }
     }

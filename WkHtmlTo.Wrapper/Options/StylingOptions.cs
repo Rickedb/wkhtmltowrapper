@@ -1,4 +1,6 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿using WkHtmlTo.Wrapper.Flags;
+
+namespace WkHtmlTo.Wrapper.Options
 {
     public class StylingOptions : Options, IOptions
     {
@@ -35,7 +37,7 @@
         /// <para><em>AKA: <c>--page-height</c></em></para>
         /// </summary>
         [OptionFlag("--page-height")]
-        public double PageHeight { get; set; }
+        public double? PageHeight { get; set; }
 
         /// <summary>
         /// Set paper size to: A4, Letter, etc.
@@ -49,7 +51,7 @@
         /// <para><em>AKA: <c>--page-width</c></em></para>
         /// </summary>
         [OptionFlag("--page-width")]
-        public double PageWidth { get; set; }
+        public double? PageWidth { get; set; }
 
         /// <summary>
         /// Generates lower quality pdf/ps. Useful to shrink the result document space
@@ -68,7 +70,7 @@
         /// <para><em>AKA: <c>--page-offset</c></em></para>
         /// </summary>
         [OptionFlag("--page-offset")]
-        public int PageOffset { get; set; } = 0;
+        public int? PageOffset { get; set; } = 0;
 
         /// <summary>
         /// Minimum font size

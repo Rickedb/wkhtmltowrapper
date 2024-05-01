@@ -1,4 +1,6 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿using WkHtmlTo.Wrapper.Flags;
+
+namespace WkHtmlTo.Wrapper.Options
 {
     public class HeaderOptions : Options, IOptions
     {
@@ -24,10 +26,10 @@
         public int FontSize { get; set; } = 12;
 
         /// <summary>
-        /// Adds a html header
+        /// Adds a html header. As an example one could specify: <c>--header-html header.html</c>
         /// <para><em>AKA: <c>--header-html</c></em></para>
         /// </summary>
-        [OptionFlag("--header-html")]
+        [PathOptionFlag("--header-html")]
         public string Html { get; set; }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using WkHtmlToPdf.Wrapper.AspNetCore.Mvc;
+using WkHtmlTo.Wrapper.AspNetCore.Mvc;
 using WkHtmlToPdf.Wrapper.Mvc.Test.Models;
 
 namespace WkHtmlToPdf.Wrapper.Mvc.Test.Controllers

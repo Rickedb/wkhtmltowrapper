@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
@@ -10,7 +11,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// <para><em>AKA: <c>--allow</c></em></para>
         /// </summary>
         [OptionFlag("--allow")]
-        public List<string> Allow { get; set; }
+        public List<string> Allow { get; set; } //TODO
 
         /// <summary>
         /// Web cache directory
@@ -128,7 +129,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// Path to the ssl client cert public key in OpenSSL PEM format, optionally followed by intermediate ca and trusted certs
         /// <para><em>AKA: <c>--ssl-crt-path</c></em></para>
         /// </summary>
-        [OptionFlag("--ssl-crt-path")]
+        [PathOptionFlag("--ssl-crt-path")]
         public string CertificatePath { get; set; }
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// Path to ssl client cert private key in OpenSSL PEM format
         /// <para><em>AKA: <c>--ssl-key-path</c></em></para>
         /// </summary>
-        [OptionFlag("--ssl-key-path")]
+        [PathOptionFlag("--ssl-key-path")]
         public string CertificateKeyPath { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
@@ -15,7 +16,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// Read and write cookies from and to the supplied cookie jar file
         /// <para><em>AKA: <c>--cookie-jar</c></em></para>
         /// </summary>
-        [OptionFlag("--cookie-jar")]
+        [PathOptionFlag("--cookie-jar")]
         public string JarPath { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿using WkHtmlTo.Wrapper.Flags;
+
+namespace WkHtmlTo.Wrapper.Options
 {
     public class OutlineOptions : Options, IOptions
     {
@@ -13,7 +15,7 @@
         /// Dump the outline to a file
         /// <para><em>AKA: <c>--dump-outline</c></em></para> 
         /// </summary>
-        [OptionFlag("--dump-outline")]
+        [PathOptionFlag("--dump-outline")]
         public string DumpOutlinePath { get; set; }
 
         /// <summary>

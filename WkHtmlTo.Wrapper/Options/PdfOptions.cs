@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
@@ -78,18 +79,16 @@ namespace WkHtmlTo.Wrapper.Options
         /// </summary>
         public string CustomExtraOptions { get; set; }
 
-        //public StylingOptions Styling { get; set; } = new StylingOptions();
-        public ProxyOptions Proxy { get; set; } = new ProxyOptions();
-        public PageOptions Page { get; set; } = new PageOptions();
-        //public OutlineOptions Outline { get; set; } = new OutlineOptions();
-        //public TableOfContentsOptions TableOfContents { get; set; } = new TableOfContentsOptions();
-        public CookiesOptions CookiesOptions { get; set; } = new CookiesOptions();
-
-
-        //public JavascriptOptions JavascriptOptions { get; set; } = new JavascriptOptions();
-        //public HttpOptions HttpOptions { get; set; } = new HttpOptions();
-        //public HeaderOptions HeaderOptions { get; set; } = new HeaderOptions();
-        //public FooterOptions FooterOptions { get; set; } = new FooterOptions();
+        public StylingOptions Styling { get; set; }
+        public ProxyOptions Proxy { get; set; }
+        public PageOptions Page { get; set; }
+        public OutlineOptions Outline { get; set; }
+        public CookiesOptions Cookies { get; set; }
+        public JavascriptOptions Javascript { get; set; }
+        public HttpOptions Http { get; set; }
+        public HeaderOptions Header { get; set; }
+        public FooterOptions Footer { get; set; }
+        public TableOfContentsOptions TableOfContents { get; set; }
 
         protected PdfOptions()
         {
@@ -108,12 +107,8 @@ namespace WkHtmlTo.Wrapper.Options
             {
                 return string.Concat(command, " ", CustomExtraOptions);
             }
-            return command;
 
-            //return " --load-error-handling ignore ";
-            //return " --load-media-error-handling abort ";
-            //var command = base.ToSwitchCommand();
-            //return $"{command} {CustomExtraOptions}".Trim();
+            return command;
         }
     }
 }

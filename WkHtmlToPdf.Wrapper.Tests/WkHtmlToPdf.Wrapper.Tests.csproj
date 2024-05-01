@@ -23,15 +23,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WkHtmlTo.Wrapper\WkHtmlTo.Wrapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Executables\wkhtmltopdf.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Executables\wkhtmltox.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Html\CustomFooter.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Html\CustomHeader.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Html\SimpleHtml.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ReverseProxy\" />
   </ItemGroup>
 
 </Project>

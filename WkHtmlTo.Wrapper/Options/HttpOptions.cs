@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
@@ -9,7 +10,7 @@ namespace WkHtmlTo.Wrapper.Options
         /// <para><em>AKA: <c>--custom-header-propagation</c> and <c>--no-custom-header-propagation</c></em></para>
         /// </summary>
         [ToggleOptionFlag("--custom-header-propagation", "--no-custom-header-propagation")]
-        public bool CustomHeaderPropagation { get; set; } = false;
+        public bool CustomHeaderPropagation { get; set; }
 
         /// <summary>
         /// Set an additional HTTP header

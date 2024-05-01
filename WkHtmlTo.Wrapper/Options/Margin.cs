@@ -1,4 +1,6 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿using WkHtmlTo.Wrapper.Flags;
+
+namespace WkHtmlTo.Wrapper.Options
 {
     public class Margin : Options, IOptions
     {

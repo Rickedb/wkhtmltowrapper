@@ -1,4 +1,4 @@
-﻿namespace WkHtmlTo.Wrapper.Options
+﻿namespace WkHtmlTo.Wrapper.Flags
 {
     internal class ToggleOptionFlag : OptionFlag
     {

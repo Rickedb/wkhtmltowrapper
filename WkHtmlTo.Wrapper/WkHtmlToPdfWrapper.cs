@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -42,7 +44,7 @@ namespace WkHtmlTo.Wrapper
             //     "<url/file-path> <path>" - just paths
             //switches += " -";
             var args = new StringBuilder(options.ToSwitchCommand());
-            if(options is IFileOrUrlOptions fileOrUrlOptions)
+            if (options is IFileOrUrlOptions fileOrUrlOptions)
             {
                 args.Append($" \"{fileOrUrlOptions.HtmlFilePathOrUrl}\"");
             }
@@ -52,21 +54,29 @@ namespace WkHtmlTo.Wrapper
             }
 
             ConversionResult result;
-            if (string.IsNullOrWhiteSpace(options.OutputPath))
+            var outputPath = options.OutputPath;
+            if (string.IsNullOrWhiteSpace(outputPath))
             {
                 result = new StreamConversionResult();
                 args.Append(" -");
             }
             else
             {
+                if (!PathInfo.IsPathFullyQualified(outputPath))
+                {
+                    var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    outputPath = Path.Combine(currentDir, outputPath);
+                }
+
                 result = new FileConversionResult();
-                args.Append($" \"{options.OutputPath}\"");
+                args.Append($" \"{outputPath}\"");
             }
 
+            var arguments = args.ToString();
             var proc = Process.Start(new ProcessStartInfo
             {
                 FileName = Path.Combine(_wkHtmlPath, _wkHtmlExe),
-                Arguments = args.ToString(),
+                Arguments = arguments,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -108,16 +118,17 @@ namespace WkHtmlTo.Wrapper
                     }
                 }
                 result.SetResult(ms);
+                await proc.CompatibleWaitForExitAsync(cancellationToken);
             }
             else
             {
-                result.SetResult(options.OutputPath);
+                await proc.CompatibleWaitForExitAsync(cancellationToken);
+                result.SetResult(outputPath);
             }
 
-            await proc.CompatibleWaitForExitAsync(cancellationToken);
             if (proc.ExitCode > 0)
             {
-
+                throw new WkHtmlToException(proc);
             }
 
             return result;
