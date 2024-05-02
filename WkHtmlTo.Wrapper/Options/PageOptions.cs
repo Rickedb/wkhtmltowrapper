@@ -10,14 +10,14 @@ namespace WkHtmlTo.Wrapper.Options
         /// Allow the file or files from the specified folder to be loaded
         /// <para><em>AKA: <c>--allow</c></em></para>
         /// </summary>
-        [OptionFlag("--allow")]
-        public List<string> Allow { get; set; } //TODO
+        [PathOptionFlag("--allow")]
+        public List<string> Allow { get; set; }
 
         /// <summary>
         /// Web cache directory
         /// <para><em>AKA: <c>--cache-dir</c></em></para>
         /// </summary>
-        [OptionFlag("--cache-dir")]
+        [PathOptionFlag("--cache-dir")]
         public string CacheDirectory { get; set; }
 
         /// <summary>

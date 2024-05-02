@@ -11,13 +11,10 @@ namespace WkHtmlTo.Wrapper.Options
 {
     public abstract class Options : IOptions
     {
-        private static Lazy<string> _lazyAssemblyPath = new Lazy<string>(GetCurrentAssemblyPath);
-
         public virtual string ToSwitchCommand()
         {
             var builder = new StringBuilder();
-
-            var fields = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic);
+            var fields = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (var fi in fields)
             {
                 var value = fi.GetValue(this, null);
@@ -26,7 +23,7 @@ namespace WkHtmlTo.Wrapper.Options
 
                 if (value is IOptions innerOption)
                 {
-                    builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", innerOption.ToSwitchCommand());
+                    builder.AppendFormat(innerOption);
                     continue;
                 }
 
@@ -36,41 +33,27 @@ namespace WkHtmlTo.Wrapper.Options
 
                 if (value is IDictionary<string, string> dictionary)
                 {
-                    foreach (var d in dictionary)
-                    {
-                        builder.AppendFormat(" {0} \"{1}\" \"{2}\"", flag.SwitchName, d.Key, d.Value);
-                    }
+                    builder.AppendFormat(flag, dictionary);
                 }
                 else if (value is bool boolean)
                 {
-                    if (boolean)
-                    {
-                        builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", flag.SwitchName);
-                    }
-                    else if (flag is ToggleOptionFlag toggleFlag)
-                    {
-                        builder.AppendFormat(CultureInfo.InvariantCulture, " {0}", toggleFlag.FalseSwitchName);
-                    }
+                    builder.AppendFormat(flag, boolean);
                 }
                 else if (value is string str)
                 {
-                    if (flag is PathOptionFlag && !PathInfo.IsPathFullyQualified(str))
-                    {
-                        str = Path.Combine(_lazyAssemblyPath.Value, str);
-                    }
-
-                    builder.AppendFormat(CultureInfo.InvariantCulture, " {0}  \"{1}\"", flag.SwitchName, str);
+                    builder.AppendFormat(flag, str);
+                }
+                else if (value is IEnumerable<string> enumerable)
+                {
+                    builder.AppendFormat(flag, enumerable);
                 }
                 else
                 {
-                    builder.AppendFormat(CultureInfo.InvariantCulture, " {0}  \"{1}\"", flag.SwitchName, value);
+                    builder.AppendFormat(flag, value);
                 }
             }
 
             return builder.ToString().Trim();
         }
-
-        private static string GetCurrentAssemblyPath()
-            => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     }
 }

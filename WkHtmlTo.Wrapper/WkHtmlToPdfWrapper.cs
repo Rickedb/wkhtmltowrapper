@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -36,13 +34,6 @@ namespace WkHtmlTo.Wrapper
 
         private async Task<ConversionResult> ConvertAsync(IPdfOptions options, CancellationToken cancellationToken)
         {
-            // switches:
-            //     " -"  - switch output to stdout
-            //     "- -" - switch input to stdin and output to stdout
-            //     "- <path>" - stdin input and output to path
-            //     "<url/file-path> -" output to stdout
-            //     "<url/file-path> <path>" - just paths
-            //switches += " -";
             var args = new StringBuilder(options.ToSwitchCommand());
             if (options is IFileOrUrlOptions fileOrUrlOptions)
             {
@@ -62,13 +53,8 @@ namespace WkHtmlTo.Wrapper
             }
             else
             {
-                if (!PathInfo.IsPathFullyQualified(outputPath))
-                {
-                    var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    outputPath = Path.Combine(currentDir, outputPath);
-                }
-
                 result = new FileConversionResult();
+                outputPath = PathInfo.GetAbsolutePath(outputPath);
                 args.Append($" \"{outputPath}\"");
             }
 

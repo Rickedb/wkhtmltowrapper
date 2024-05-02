@@ -16,7 +16,7 @@ namespace WkHtmlTo.Wrapper.Options
         public bool DisableLinks { get; set; }
         [OptionFlag("--toc-text-size-shrink")]
         public double TextSizeShrink { get; set; } = .8d;
-        [OptionFlag("--xsl-style-sheet")]
+        [PathOptionFlag("--xsl-style-sheet")]
         public string XslStyleSheetPath { get; set; }
     }
 }

@@ -38,6 +38,6 @@ namespace WkHtmlTo.Wrapper.Options
         /// <para><em>AKA: <c>--run-script</c></em></para>
         /// </summary>
         [OptionFlag("--run-script")]
-        public string Scripts { get; set; } //TODO: List of scripts
+        public List<string> Scripts { get; set; }
     }
 }

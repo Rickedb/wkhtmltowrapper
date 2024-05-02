@@ -90,28 +90,28 @@ namespace WkHtmlTo.Wrapper.Options
         /// Use this SVG file when rendering checked checkboxes
         /// <para><em>AKA: <c>--checkbox-checked-svg</c></em></para>
         /// </summary>
-        [OptionFlag("--checkbox-checked-svg")]
+        [PathOptionFlag("--checkbox-checked-svg")]
         public string CheckedCheckboxSVG { get; set; }
 
         /// <summary>
         ///  Use this SVG file when rendering unchecked checkboxes
         ///  <para><em>AKA: <c>--checkbox-svg</c></em></para>
         /// </summary>
-        [OptionFlag("--checkbox-svg")]
+        [PathOptionFlag("--checkbox-svg")]
         public string UncheckedCheckboxSVG { get; set; }
 
         /// <summary>
         /// Use this SVG file when rendering checked radiobuttons
         /// <para><em>AKA: <c>--radiobutton-checked-svg</c></em></para>
         /// </summary>
-        [OptionFlag("--radiobutton-checked-svg")]
+        [PathOptionFlag("--radiobutton-checked-svg")]
         public string CheckedRadioButtonSVG { get; set; }
 
         /// <summary>
         /// Use this SVG file when rendering unchecked radiobuttons
         /// <para><em>AKA: <c>--radiobutton-svg</c></em></para>
         /// </summary>
-        [OptionFlag("--radiobutton-svg")]
+        [PathOptionFlag("--radiobutton-svg")]
         public string UncheckedRadioButtonSVG { get; set; }
 
         /// <summary>

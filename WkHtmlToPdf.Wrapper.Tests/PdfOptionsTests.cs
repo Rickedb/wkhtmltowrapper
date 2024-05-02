@@ -20,7 +20,6 @@ namespace WkHtmlToPdf.Wrapper.Tests
         [Fact(DisplayName = "Header and footer options")]
         public void TestHeaderAndFooterOptions()
         {
-            var filename = $"{nameof(TestHeaderAndFooterOptions)}.pdf";
             var opt = _fixture.UseHtmlOptions();
             opt.Title = "My custom title";
             opt.Header = new HeaderOptions()
@@ -67,7 +66,7 @@ namespace WkHtmlToPdf.Wrapper.Tests
         [Fact(DisplayName = "Page options")]
         public void TestPageOptions()
         {
-            var cacheDir = $"{_fixture.CurrentAssemblyLocation}/{Guid.NewGuid()}";
+            var cacheDir = $"{Guid.NewGuid()}";
             Directory.CreateDirectory(cacheDir);
 
             var filename = $"{nameof(TestPageOptions)}.pdf";
@@ -116,7 +115,8 @@ namespace WkHtmlToPdf.Wrapper.Tests
                 Background = false,
                 PageHeight = 500,
                 PageWidth = 300,
-                ZoomFactor = 2
+                ZoomFactor = 2,
+                Margin = Margin.All(10)
             };
 
             var task = _fixture.Wrapper.ConvertAsync(opt);
@@ -129,15 +129,18 @@ namespace WkHtmlToPdf.Wrapper.Tests
         public void TestOutlineOptions()
         {
             var opt = _fixture.UseHtmlOptions();
+            var dumpPath = "./Dump.xml";
             opt.Outline = new OutlineOptions()
             {
-                DumpOutlinePath = $"./Dump.xml"
+                DumpOutlinePath = dumpPath
             };
 
             var task = _fixture.Wrapper.ConvertAsync(opt);
 
             var result = task.GetAwaiter().GetResult();
             _fixture.AssertResult(result);
+            Assert.True(File.Exists(dumpPath));
+            File.Delete(dumpPath);
         }
 
         [Fact(DisplayName = "Http options")]
@@ -170,7 +173,7 @@ namespace WkHtmlToPdf.Wrapper.Tests
             opt.Javascript = new JavascriptOptions()
             {
                 Debug = true,
-                Scripts = "console.log('this is a message');"
+                Scripts = new List<string>() { "console.log('this is a message');" }
             };
 
             var task = _fixture.Wrapper.ConvertAsync(opt);
@@ -199,7 +202,8 @@ namespace WkHtmlToPdf.Wrapper.Tests
         public void TestAllTogetherOptions()
         {
             var html = File.ReadAllText("./Html/SimpleHtml.html");
-            var cacheDir = $"{_fixture.CurrentAssemblyLocation}/{Guid.NewGuid()}";
+            var cacheDir = $"{Guid.NewGuid()}";
+            var dumpPath = "./Dump.xml";
             Directory.CreateDirectory(cacheDir);
 
             var opt = new HtmlOptions(html)
@@ -231,12 +235,44 @@ namespace WkHtmlToPdf.Wrapper.Tests
                     PrintMediaType = true,
                     LocalFileAccess = true
                 },
+                Cookies = new CookiesOptions()
+                {
+                    Cookies = new Dictionary<string, string>()
+                    {
+                        {  "cookie 1", "value 1" },
+                        {  "cookie 2", "value 2" },
+                    }
+                },
                 Styling = new StylingOptions()
                 {
                     Background = false,
                     PageHeight = 500,
                     PageWidth = 300,
                     ZoomFactor = 2
+                },
+                Outline = new OutlineOptions()
+                {
+                    DumpOutlinePath = dumpPath
+                },
+                Http = new HttpOptions()
+                {
+                    CustomHeaderPropagation = true,
+                    CustomHeaders = new Dictionary<string, string>()
+                    {
+                        { "x-api-key", "api key" },
+                        { "Accept", "application / json" }
+                    },
+                    HttpAuthenticationUsername = "user 1",
+                    HttpAuthenticationPassword = "password 1"
+                },
+                Javascript = new JavascriptOptions()
+                {
+                    Debug = true,
+                    Scripts = new List<string>() { "console.log('this is a message');" }
+                },
+                TableOfContents = new TableOfContentsOptions()
+                {
+                    HeaderText = "Hello world"
                 }
             };
 
@@ -246,6 +282,8 @@ namespace WkHtmlToPdf.Wrapper.Tests
             _fixture.AssertResult(result);
             Assert.True(Directory.EnumerateFileSystemEntries(cacheDir).Count() > 0, "No cache files were created!");
             Directory.Delete(cacheDir, true);
+            Assert.True(File.Exists(dumpPath));
+            File.Delete(dumpPath);
         }
     }
 }
