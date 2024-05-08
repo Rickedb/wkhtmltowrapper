@@ -84,7 +84,7 @@ namespace WkHtmlTo.Wrapper.BlazorServer
             var filename = options.Filename;
             filename = !string.IsNullOrWhiteSpace(filename) ? SanitizeFileName(filename) : typeof(TComponent).Name;
 
-            using var streamReference = new DotNetStreamReference(stream: fileStream);
+            using var streamReference = new DotNetStreamReference(fileStream);
             await _jsRuntime.InvokeVoidAsync("downloadFileFromStream", $"{filename}.pdf", streamReference);
         }
 

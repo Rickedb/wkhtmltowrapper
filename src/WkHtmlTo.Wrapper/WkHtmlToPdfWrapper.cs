@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using WkHtmlTo.Wrapper.Logging;
 using WkHtmlTo.Wrapper.Options;
 
+[assembly: InternalsVisibleTo("WkHtmlToPdf.Wrapper.Tests")]
 namespace WkHtmlTo.Wrapper
 {
     public class WkHtmlToPdfWrapper
@@ -58,63 +60,65 @@ namespace WkHtmlTo.Wrapper
                 args.Append($" \"{outputPath}\"");
             }
 
-            var arguments = args.ToString();
-            var proc = Process.Start(new ProcessStartInfo
+            var startInfo = new ProcessStartInfo
             {
                 FileName = Path.Combine(_wkHtmlPath, _wkHtmlExe),
-                Arguments = arguments,
+                Arguments = args.ToString(),
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 RedirectStandardInput = true,
                 WorkingDirectory = _wkHtmlPath,
                 CreateNoWindow = true
-            });
-
-            if (options is IHtmlOptions htmlOptions)
+            };
+            
+            using (var proc = Process.Start(startInfo))
             {
-                using (var stdIn = proc.StandardInput)
+                if (options is IHtmlOptions htmlOptions)
                 {
-                    await stdIn.WriteLineAsync(htmlOptions.Html);
-                }
-            }
-
-            _ = Task.Run(async () =>
-            {
-                string log = string.Empty;
-                while (!string.IsNullOrEmpty(log = await proc.StandardError.ReadLineAsync()))
-                {
-                    var ev = ConversionOutputEvent.Parse(log);
-                    result.AddEvent(ev);
-                    OutputEvent?.Invoke(this, ev);
-                }
-            }, cancellationToken);
-
-            if (result is StreamConversionResult)
-            {
-                var ms = new MemoryStream();
-                using (var sOut = proc.StandardOutput.BaseStream)
-                {
-                    var buffer = new byte[2048];
-                    int read;
-
-                    while ((read = await sOut.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+                    using (var stdIn = proc.StandardInput)
                     {
-                        await ms.WriteAsync(buffer, 0, read, cancellationToken);
+                        await stdIn.WriteLineAsync(htmlOptions.Html);
                     }
                 }
-                result.SetResult(ms);
-                await proc.CompatibleWaitForExitAsync(cancellationToken);
-            }
-            else
-            {
-                await proc.CompatibleWaitForExitAsync(cancellationToken);
-                result.SetResult(outputPath);
-            }
 
-            if (proc.ExitCode > 0)
-            {
-                throw new WkHtmlToException(proc, result.Events);
+                _ = Task.Run(async () =>
+                {
+                    string log = string.Empty;
+                    while (!string.IsNullOrEmpty(log = await proc.StandardError.ReadLineAsync()))
+                    {
+                        var ev = ConversionOutputEvent.Parse(log);
+                        result.AddEvent(ev);
+                        OutputEvent?.Invoke(this, ev);
+                    }
+                }, cancellationToken);
+
+                if (result is StreamConversionResult)
+                {
+                    var ms = new MemoryStream();
+                    using (var sOut = proc.StandardOutput.BaseStream)
+                    {
+                        var buffer = new byte[2048];
+                        int read;
+
+                        while ((read = await sOut.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+                        {
+                            await ms.WriteAsync(buffer, 0, read, cancellationToken);
+                        }
+                    }
+                    result.SetResult(ms);
+                    await proc.CompatibleWaitForExitAsync(cancellationToken);
+                }
+                else
+                {
+                    await proc.CompatibleWaitForExitAsync(cancellationToken);
+                    result.SetResult(outputPath);
+                }
+
+                if (proc.ExitCode > 0)
+                {
+                    throw new WkHtmlToException(proc, result.Events);
+                }
             }
 
             return result;

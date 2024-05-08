@@ -1,0 +1,6 @@
+Loading pages (1/6)
+[>                                                           ] 0%
+[======>                                                     ] 10%
+Error: Failed to load https://en.notexists.orgfail/, with network status code 3 and http status code 0 - Host  not found
+Error: Failed loading page https://en.notexists.orgfail/ (sometimes it will work just to ignore this error with --load-error-handling ignore)
+Exit with code 1 due to network error: HostNotFoundError

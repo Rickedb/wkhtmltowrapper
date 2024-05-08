@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Linq;
 
 namespace WkHtmlTo.Wrapper.Logging
 {
-    public readonly struct ConversionOutputEvent
+    public class ConversionOutputEvent
     {
         public string Message { get; }
         public ConversionOutputEventType EventType { get; }
 
-        private ConversionOutputEvent(string message, ConversionOutputEventType eventType)
+        internal ConversionOutputEvent(string message, ConversionOutputEventType eventType)
         {
             Message = message;
             EventType = eventType;
@@ -34,39 +33,6 @@ namespace WkHtmlTo.Wrapper.Logging
             }
 
             return new ConversionOutputEvent(message, ConversionOutputEventType.Information);
-        }
-
-        internal ProgressStep GetOverallStep()
-        {
-            if (EventType == ConversionOutputEventType.OverallStep)
-            {
-                return ProgressStep.ParseOverallProgressStep(Message);
-            }
-            return default;
-        }
-
-        internal int GetOverallProgress()
-        {
-            if (EventType == ConversionOutputEventType.OverallProgress)
-            {
-                var percentage = Message.Split(']').LastOrDefault();
-                if (percentage != default)
-                {
-                    int.TryParse(percentage.Replace("%", string.Empty), out var progress);
-                    return progress;
-                }
-            }
-
-            return -1;
-        }
-
-        internal Tuple<int, int> GetStepProgress()
-        {
-            if (EventType == ConversionOutputEventType.InnerStepProgress)
-            {
-            }
-
-            return Tuple.Create(-1, -1);
         }
     }
 }

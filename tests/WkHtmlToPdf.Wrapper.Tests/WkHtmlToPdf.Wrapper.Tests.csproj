@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlTo.Wrapper\WkHtmlTo.Wrapper.csproj" />
+    <ProjectReference Include="..\..\src\WkHtmlTo.Wrapper\WkHtmlTo.Wrapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +42,16 @@
     <None Update="Html\SimpleHtml.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Logs\ErrorLogs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Logs\OkLogs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,15 @@
-﻿namespace WkHtmlTo.Wrapper.Logging
+﻿using System;
+
+namespace WkHtmlTo.Wrapper.Logging
 {
-    public struct ConversionOutputEventArgs
+    public readonly struct ConversionOutputEventArgs
     {
-        public ConversionOutputEvent Event { get; set; }
+        public DateTime OccurredAt { get; }
+        public ConversionOutputEvent Event { get; }
 
         public ConversionOutputEventArgs(ConversionOutputEvent ev)
         {
+            OccurredAt = DateTime.Now;
             Event = ev;
         }
     }
