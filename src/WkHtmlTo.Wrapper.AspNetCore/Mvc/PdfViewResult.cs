@@ -56,7 +56,7 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
 
             var logger = context.HttpContext.RequestServices.GetService<ILogger<PdfViewResult>>();
             var wrapper = context.HttpContext.RequestServices.GetService<WkHtmlToPdfWrapper>();
-            var onLog = new EventHandler<ConversionOutputEvent>((object sender, ConversionOutputEvent e) => logger?.Log(e));
+            var onLog = new EventHandler<ConversionOutputEventArgs>((object sender, ConversionOutputEventArgs e) => logger?.Log(e));
 
             wrapper.OutputEvent += onLog;
             var result = await wrapper.ConvertAsync(Options);

@@ -1,5 +1,8 @@
 ﻿namespace WkHtmlTo.Wrapper.Logging
 {
+    /// <summary>
+    /// The categorized type of event that can be outputed from stdout console
+    /// </summary>
     public enum ConversionOutputEventType
     {
         Information = 0,

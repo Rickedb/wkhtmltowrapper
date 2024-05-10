@@ -3,6 +3,9 @@ using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all http options that can be set to wkhtmlto
+    /// </summary>
     public class HttpOptions : Options, IOptions
     {
         /// <summary>

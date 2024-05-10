@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,8 +6,15 @@ using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// The base class of any available wkhtmlto option or argument
+    /// </summary>
     public abstract class Options : IOptions
     {
+        /// <summary>
+        /// Convert the configured options to switch command arguments to use at wkhtmlto executable
+        /// </summary>
+        /// <returns>The arguments in a string representation</returns>
         public virtual string ToSwitchCommand()
         {
             var builder = new StringBuilder();

@@ -3,6 +3,9 @@ using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all cookies options that can be set to wkhtmlto
+    /// </summary>
     public class CookiesOptions : Options, IOptions
     {
         /// <summary>

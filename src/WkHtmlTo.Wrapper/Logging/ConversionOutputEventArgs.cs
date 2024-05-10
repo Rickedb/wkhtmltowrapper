@@ -7,7 +7,7 @@ namespace WkHtmlTo.Wrapper.Logging
         public DateTime OccurredAt { get; }
         public ConversionOutputEvent Event { get; }
 
-        public ConversionOutputEventArgs(ConversionOutputEvent ev)
+        internal ConversionOutputEventArgs(ConversionOutputEvent ev)
         {
             OccurredAt = DateTime.Now;
             Event = ev;

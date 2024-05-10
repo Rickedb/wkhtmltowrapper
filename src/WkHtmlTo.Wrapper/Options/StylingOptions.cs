@@ -2,6 +2,9 @@
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all styling options that can be set to wkhtmlto
+    /// </summary>
     public class StylingOptions : Options, IOptions
     {
         /// <summary>

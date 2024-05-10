@@ -3,6 +3,9 @@ using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// The representation of the wkhtmltopdf arguments, for more information please check: <see href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt"/>
+    /// </summary>
     public abstract class PdfOptions : Options, IPdfOptions
     {
         public string OutputPath { get; set; }

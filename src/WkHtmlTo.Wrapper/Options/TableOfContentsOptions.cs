@@ -2,6 +2,9 @@
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all table of contents (TOC) options that can be set to wkhtmlto
+    /// </summary>
     public class TableOfContentsOptions : Options, IOptions
     {
         [OptionFlag("toc")]

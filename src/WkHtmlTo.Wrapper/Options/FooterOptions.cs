@@ -2,6 +2,9 @@
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all pdf footer options that can be set to wkhtmlto
+    /// </summary>
     public class FooterOptions : Options, IOptions
     {
         /// <summary>

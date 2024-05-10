@@ -4,6 +4,9 @@ using WkHtmlTo.Wrapper.Flags;
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all page options that can be set to wkhtmlto
+    /// </summary>
     public class PageOptions : Options, IOptions
     {
         /// <summary>

@@ -2,7 +2,10 @@
 
 namespace WkHtmlTo.Wrapper.Logging
 {
-    public class ConversionOutputEvent
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class ConversionOutputEvent
     {
         public string Message { get; }
         public ConversionOutputEventType EventType { get; }

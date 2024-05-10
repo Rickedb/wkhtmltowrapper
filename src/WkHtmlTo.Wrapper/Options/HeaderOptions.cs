@@ -2,6 +2,9 @@
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all pdf header options that can be set to wkhtmlto
+    /// </summary>
     public class HeaderOptions : Options, IOptions
     {
         /// <summary>

@@ -15,11 +15,11 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Options
 {
     public class RazorViewPdfOptions : PdfOptions, IHtmlOptions
     {
-        public string Html { get; set; }
+        string IHtmlOptions.Html { get; set; }
 
         internal async Task RenderViewToHtmlAsync(ActionContext actionContext, ViewDataDictionary viewData, string viewName)
         {
-            Html = await RenderHtmlFromViewAsync(actionContext, viewData, viewName);
+            (this as IHtmlOptions).Html = await RenderHtmlFromViewAsync(actionContext, viewData, viewName);
         }
 
         private static async Task<string> RenderHtmlFromViewAsync(ActionContext context, ViewDataDictionary viewData, string viewName)

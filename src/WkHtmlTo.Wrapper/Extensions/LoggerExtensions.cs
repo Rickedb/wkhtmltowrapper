@@ -4,12 +4,18 @@ namespace Microsoft.Extensions.Logging
 {
     public static class LoggerExtensions
     {
-        public static void Log<T>(this ILogger<T> logger, ConversionOutputEvent ev)
+        public static void Log<T>(this ILogger<T> logger, ConversionOutputEventArgs args)
         {
+            var ev = args.Event;
             var logLevel = ev.EventType.AsLogLevel();
-            logger.Log(logLevel, "[{Type}]: {Message}", ev.EventType, ev.Message);
+            logger.Log(logLevel, "[{OccurredAt}][{Type}]: {Message}", args.OccurredAt, ev.EventType, ev.Message);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static LogLevel AsLogLevel(this ConversionOutputEventType type)
         {
             switch(type)

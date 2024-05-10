@@ -2,6 +2,9 @@
 
 namespace WkHtmlTo.Wrapper.Options
 {
+    /// <summary>
+    /// Represents all outline options that can be set to wkhtmlto
+    /// </summary>
     public class OutlineOptions : Options, IOptions
     {
         /// <summary>
