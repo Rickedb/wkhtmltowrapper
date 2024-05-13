@@ -1,0 +1,68 @@
+name: dotnetcore
+
+on: 
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  wrapper:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@master
+        with:
+          dotnet-version: | 
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+      - name: Build library
+        run: dotnet build src/WkHtmlTo.Wrapper/WkHtmlTo.Wrapper.csproj --configuration release
+  aspnetcore-wrapper:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@master
+        with:
+          dotnet-version: | 
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+      - name: Build library
+        run: dotnet build src/WkHtmlTo.Wrapper.AspNetCore/WkHtmlTo.Wrapper.AspNetCore.csproj --configuration release
+  blazor_server-wrapper:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@master
+        with:
+          dotnet-version: | 
+            8.0.x
+      - name: Build library
+        run: dotnet build src/WkHtmlTo.Wrapper.BlazorServer/WkHtmlTo.Wrapper.BlazorServer.csproj --configuration release
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and run .net core tests
+        uses: actions/setup-dotnet@master
+        with:
+          dotnet-version: | 
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+      - name: Test Mids
+        run: |
+          dotnet build tests/WkHtmlToPdf.Wrapper.Tests/WkHtmlToPdf.Wrapper.Tests.csproj
+          dotnet test tests/WkHtmlToPdf.Wrapper.Tests/WkHtmlToPdf.Wrapper.Tests.csproj

@@ -1,0 +1,21 @@
+name: .Net Standard
+
+on: 
+  pull_request:
+    paths:
+      - 'src/*'
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .Net Standard
+        uses: actions/setup-dotnet@master
+      - name: build
+        run: | 
+          dotnet msbuild src/WkHtmlTo.Wrapper/WkHtmlTo.Wrapper.csproj -t:restore
+          dotnet msbuild src/WkHtmlTo.Wrapper/WkHtmlTo.Wrapper.csproj -p:Configuration=Release    
