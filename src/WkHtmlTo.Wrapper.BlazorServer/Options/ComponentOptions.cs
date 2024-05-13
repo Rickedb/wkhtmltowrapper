@@ -6,16 +6,30 @@ using WkHtmlTo.Wrapper.Options;
 
 namespace WkHtmlTo.Wrapper.BlazorServer.Options
 {
-    public class ComponentOptions : PdfOptions, IComponentOptions
+    /// <summary>
+    /// The conversion options to convert a blazor component to pdf in wkhtmltopdf
+    /// </summary>
+    public class ComponentOptions : PdfOptions, IHtmlOptions
     {
-        public string Html { get; set; }
+        string IHtmlOptions.Html { get; set; }
+
+        /// <summary>
+        /// The output filename of the pdf
+        /// </summary>
         public string Filename { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="ComponentOptions"/>.
+        /// </summary>
         public ComponentOptions()
         {
             
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="ComponentOptions"/>.
+        /// </summary>
+        /// <param name="filename">The output filename of the pdf</param>
         public ComponentOptions(string filename)
         {
             Filename = filename;
@@ -23,7 +37,7 @@ namespace WkHtmlTo.Wrapper.BlazorServer.Options
 
         internal async Task RenderHtmlFromComponentAsync<TComponent>(HtmlRenderer renderer, ParameterView parameterView) where TComponent : IComponent
         {
-            Html = await renderer.Dispatcher.InvokeAsync(async () =>
+            (this as IHtmlOptions).Html = await renderer.Dispatcher.InvokeAsync(async () =>
             {
                 using var output = new StringWriter();
                 var htmlComponent = await renderer.RenderComponentAsync<TComponent>(parameterView);

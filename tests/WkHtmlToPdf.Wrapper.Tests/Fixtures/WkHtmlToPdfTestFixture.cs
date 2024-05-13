@@ -14,7 +14,7 @@ namespace WkHtmlToPdf.Wrapper.Tests.Fixtures
         public WkHtmlToPdfTestFixture()
         {
             Wrapper = new WkHtmlToPdfWrapper("./Executables");
-            Wrapper.OutputEvent += (obj, str) => Debug.WriteLine($"[{str.EventType}]: {str.Message}");
+            Wrapper.OutputEvent += (obj, str) => Debug.WriteLine($"[{str.Event.EventType}]: {str.Event.Message}");
             CurrentAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 

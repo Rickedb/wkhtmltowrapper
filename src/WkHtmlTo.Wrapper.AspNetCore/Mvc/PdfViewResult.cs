@@ -11,11 +11,25 @@ using WkHtmlTo.Wrapper.Logging;
 
 namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
 {
+    /// <summary>
+    /// Represents an <see cref="ActionResult"/> that renders a pdf view to the response.
+    /// </summary>
     public class PdfViewResult : ViewResult
     {
+        /// <summary>
+        /// Gets or sets the content disposition header
+        /// </summary>
         public ContentDisposition ContentDisposition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the wkhtmlto rendering options 
+        /// </summary>
         public RazorViewPdfOptions Options { get; set; } = new RazorViewPdfOptions();
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="PdfFileContentResult"/>
+        /// </summary>
+        /// <param name="viewData">The <see cref="ViewDataDictionary"/>, usually from <see cref="Controller.ViewData"/></param>
         public PdfViewResult(ViewDataDictionary viewData = null)
         {
             ViewName = string.Empty;
@@ -25,18 +39,34 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="PdfFileContentResult"/>
+        /// </summary>
+        /// <param name="viewName">The name of the view that should be rendered and used to generate the pdf</param>
+        /// <param name="viewData">The <see cref="ViewDataDictionary"/>, usually from <see cref="Controller.ViewData"/></param>
         public PdfViewResult(string viewName, ViewDataDictionary viewData = null)
             : this(viewData)
         {
             ViewName = viewName;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="PdfFileContentResult"/>
+        /// </summary>
+        /// <param name="model">The model instance associated with the view</param>
+        /// <param name="viewData">The <see cref="ViewDataDictionary"/>, usually from <see cref="Controller.ViewData"/></param>
         public PdfViewResult(object model, ViewDataDictionary viewData = null)
             : this(viewData)
         {
             ViewData.Model = model;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="PdfFileContentResult"/>
+        /// </summary>
+        /// <param name="viewName">The name of the view that should be rendered and used to generate the pdf</param>
+        /// <param name="model">The model instance associated with the view</param>
+        /// <param name="viewData">The <see cref="ViewDataDictionary"/>, usually from <see cref="Controller.ViewData"/></param>
         public PdfViewResult(string viewName, object model, ViewDataDictionary viewData = null)
             : this(viewData)
         {
@@ -44,6 +74,11 @@ namespace WkHtmlTo.Wrapper.AspNetCore.Mvc
             ViewData.Model = model;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="PdfFileContentResult"/>
+        /// </summary>
+        /// <param name="viewName">The name of the view that should be rendered and used to generate the pdf</param>
+        /// <param name="model">The model instance associated with the view</param>
         public PdfViewResult(string viewName, object model)
             : this(viewName, model, null)
         {

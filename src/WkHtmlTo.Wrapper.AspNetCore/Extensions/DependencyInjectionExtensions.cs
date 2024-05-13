@@ -1,23 +1,25 @@
-﻿using Microsoft.Extensions.Logging;
-using WkHtmlTo.Wrapper;
-using WkHtmlTo.Wrapper.AspNetCore;
+﻿using WkHtmlTo.Wrapper;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// Extension methods to help wrapper dependency injection
+    /// </summary>
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddWkHtmlToWrapper(this IServiceCollection service)
-            => service.AddWkHtmlToWrapper(string.Empty);
+        /// <summary>
+        /// Adds WkHtmlTo wrapper into service collection
+        /// </summary>
+        /// <param name="services"><see cref="IServiceCollection"/> instance</param>
+        public static IServiceCollection AddWkHtmlToWrapper(this IServiceCollection services)
+            => services.AddWkHtmlToWrapper(string.Empty);
 
-        public static IServiceCollection AddWkHtmlToWrapper(this IServiceCollection services, string wkToHtmlExecutablePath)
-        {
-            services.AddScoped((provider) =>
-            {
-                var wrapper = new WkHtmlToPdfWrapper(wkToHtmlExecutablePath);
-                //TODO: Check how to use logger properly
-                return wrapper;
-            });
-            return services;
-        }
+        /// <summary>
+        /// Adds WkHtmlTo wrapper into service collection specifying the wkhtmlto executable path
+        /// </summary>
+        /// <param name="services"><see cref="IServiceCollection"/> instance</param>
+        /// <param name="wkHtmlToExecutablePath">Folder path where your whkhtmltopdf executable is located</param>
+        public static IServiceCollection AddWkHtmlToWrapper(this IServiceCollection services, string wkHtmlToExecutablePath)
+            => services.AddScoped((provider) => new WkHtmlToPdfWrapper(wkHtmlToExecutablePath));
     }
 }

@@ -2,13 +2,12 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using WkHtmlTo.Wrapper.AspNetCore.Options;
 
 namespace WkHtmlTo.Wrapper.AspNetCore.Extensions
 {
     internal static class HttpExtensions
     {
-        public static HttpResponse Prepare(this HttpResponse response, ContentDisposition contentDisposition, string filename)
+        internal static HttpResponse Prepare(this HttpResponse response, ContentDisposition contentDisposition, string filename)
         {
             response.ContentType = "application/pdf";
             if (!string.IsNullOrEmpty(filename))

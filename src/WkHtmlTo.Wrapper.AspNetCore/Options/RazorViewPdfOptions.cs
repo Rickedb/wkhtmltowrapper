@@ -13,6 +13,9 @@ using WkHtmlTo.Wrapper.Options;
 
 namespace WkHtmlTo.Wrapper.AspNetCore.Options
 {
+    /// <summary>
+    /// The conversion options to convert a <see cref="ViewResult"/> to pdf in wkhtmltopdf
+    /// </summary>
     public class RazorViewPdfOptions : PdfOptions, IHtmlOptions
     {
         string IHtmlOptions.Html { get; set; }

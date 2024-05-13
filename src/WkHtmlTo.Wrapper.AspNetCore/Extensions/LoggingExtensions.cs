@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.Logging
 {
     internal static class LoggingExtensions
     {
-        public static LogLevel ToLogLevel(this PromptLogLevel promptLogLevel)
+        internal static LogLevel ToLogLevel(this PromptLogLevel promptLogLevel)
         {
             return promptLogLevel switch
             {
@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.Logging
             };
         }
 
-        public static LogLevel ToLogLevel(this ConversionOutputEventType type)
+        internal static LogLevel ToLogLevel(this ConversionOutputEventType type)
         {
             return type switch
             {

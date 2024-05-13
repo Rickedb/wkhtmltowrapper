@@ -4,9 +4,26 @@
     <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;netstandard2.0</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <Version>1.0.0</Version>
+    <Description>Yet another free C# wrapper of wkhtmltopdf and wkhtmltoimage</Description>
+    <Copyright>Copyright © 2024</Copyright>
+    <Authors>Henrique Dal Bello Batista</Authors>
+    <Company>Henrique Dal Bello Batista</Company>
+    <PackageProjectUrl>https://github.com/Rickedb/wkhtmltowrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Rickedb/wkhtmltowrapper</RepositoryUrl>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageTags>CSharp wkhtmlto pdf converter</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>See release notes at: https://github.com/Rickedb/wkhtmltowrapper/releases</PackageReleaseNotes>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
-  
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference  Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlTo.Wrapper.AspNetCore\WkHtmlTo.Wrapper.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\WkHtmlTo.Wrapper.AspNetCore\WkHtmlTo.Wrapper.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

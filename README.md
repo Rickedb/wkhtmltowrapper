@@ -24,3 +24,24 @@ There are many others awesome PDF generators that you might consider.
 Such as [WeasyPrint](https://github.com/Kozea/WeasyPrint/) that is a more modern and maintainable library.
 
 > But if you still stick with this, feel free to use.
+
+## NuGet 
+
+```bash
+# Wrapper library
+dotnet add package WkHtmlTo.Wrapper
+
+# AspNetCore MVC
+dotnet add package WkHtmlTo.Wrapper.AspNetCore
+
+# Blazor server
+dotnet add package WkHtmlTo.Wrapper.BlazorServer
+```
+
+## How to use?
+
+The heart of the library is the **Wrapper**, so everything ends up on him and you can use it anywhere you want. 
+However there are some abstractions created for Razor and Blazor server components .
+
+### AspNetCore abstraction
+

@@ -4,8 +4,26 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <Version>1.0.0</Version>
+    <Description>AspNetCore abstraction for WkHtmlTo.Wrapper</Description>
+    <Copyright>Copyright © 2024</Copyright>
+    <Authors>Henrique Dal Bello Batista</Authors>
+    <Company>Henrique Dal Bello Batista</Company>
+    <PackageProjectUrl>https://github.com/Rickedb/wkhtmltowrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Rickedb/wkhtmltowrapper</RepositoryUrl>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageTags>CSharp wkhtmlto pdf converter blazor server</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>See release notes at: https://github.com/Rickedb/wkhtmltowrapper/releases</PackageReleaseNotes>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WkHtmlTo.Wrapper\WkHtmlTo.Wrapper.csproj" />
   </ItemGroup>
