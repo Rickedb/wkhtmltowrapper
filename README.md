@@ -51,8 +51,41 @@ However there are some abstractions created for Razor and Blazor server componen
 
 > If you run in both OS like Windows for development and publish on Linux, you should consider downloading both.
 
+After that you'll need to install the binaries or have them at your folder. 
+
+#### Dockerfile
+
+```dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS base
+WORKDIR /app
+RUN apt-get update && \
+	apt-get install -y wget wkhtmltopdf
+
+USER app
+EXPOSE 8080
+EXPOSE 8081
+```
+
+> It is possible to download the `.deb` and install it, if necessary
+
+#### Windows
+
+Add the files to be copied to your publish folder by adding on your `.csproj`:
+
+```xml
+<ItemGroup>
+  <None Update="<path>\wkhtmltopdf.exe">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Update="<path>\wkhtmltox.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+```
 
 ### Usage examples
+
+For more examples, please check the [samples folder](https://github.com/Rickedb/wkhtmltowrapper/tree/master/samples).
 
 #### Basic usage
 ```csharp

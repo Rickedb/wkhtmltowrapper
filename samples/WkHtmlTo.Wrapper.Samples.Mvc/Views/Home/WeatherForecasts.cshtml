@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WeatherForecast> 
+@{
+}
+<h2>Forecasts</h2>
+<div class="no-print d-flex">
+    <a asp-area="" asp-controller="Home" asp-action="DownloadWeatherForecasts" target="_blank" class="btn btn-primary float-end">Print</a>
+</div>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temperature (°C/°F)</th>
+            <th>Summary</th>
+        </tr>
+</thead>
+<tbody>
+    @foreach(var forecast in Model)
+        {
+            <tr>
+                <td>@forecast.Date</td>
+                <td>@($"{forecast.TemperatureC}°/{forecast.TemperatureF}°")</td>
+                <td>@forecast.Summary</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -2,6 +2,9 @@ name: master
 
 on:
   push:
+    paths:
+      - 'src/*'
+      - '.github/*'
     branches:
       - master
 
