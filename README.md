@@ -160,9 +160,6 @@ public IActionResult Download()
 
 At Blazor server it relies on the new `HtmlRenderer` class to render the component string. 
 
-> At the point we are now with Blazor Server, unlike the **AspNetCore MVC**, it only renders the given component without considering the root component _(e.g.: `MainLayout.razor`)_, 
-so you might need to include your entire HTML at the rendered component.
-
 #### Dependency injection
 
 ```csharp
@@ -240,6 +237,7 @@ else
 ##### Index.razor (Page where we want to run export)
 ```
 @page "/"
+@inject PdfComponentRenderer Renderer
 
 <PageTitle>Index</PageTitle>
 
@@ -256,3 +254,9 @@ Welcome to your new app.
     }
 }
 ```
+
+#### Limitations
+
+1. At the point we are now with Blazor Server, unlike the **AspNetCore MVC**, it only renders the given component without considering the root component _(e.g.: `MainLayout.razor`)_, 
+so you might need to include your entire HTML at the rendered component.
+2. When it renders, it won't trigger `AfterRender`/`AfterRenderAsync` methods, just `Initialize`/`InitializeAsync`, so, if you rely in any component that should be rendered before manipulating, it won't work.
